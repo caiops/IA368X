@@ -138,7 +138,7 @@ As imagens abaixo apresentam a distribuição da raça dos pacientes em cada cen
 
 Cenário 01:
 
-![Distribuição de raça, dividida por desfecho, cenário 01](/assets/race_01.jpg)
+![Distribuição de raça, dividida por desfecho, cenário 01](assets/race_01.jpg)
 
 Cenário 02:
 
