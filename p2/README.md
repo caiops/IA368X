@@ -142,7 +142,7 @@ Cenário 01:
 
 Cenário 02:
 
-![Distribuição de raça, dividida por desfecho, cenário 02](/assets/race_02.jpg)
+![Distribuição de raça, dividida por desfecho, cenário 02](assets/race_02.jpg)
 
 A tabela abaixo apresenta algumas informações sobre a idade dos pacientes. Os dados parecem indicar que pacientes mais novos possuem mais risco de virem a óbito em decorrência da NF.
 
@@ -174,19 +174,19 @@ Os resultados obtidos pelos diferentes classificadores no processo de treino e v
 
 Cenário 01:
 
-![Resultados obtidos no cenário 01 usando todas as features](/assets/validation_all_features_01.jpg)
+![Resultados obtidos no cenário 01 usando todas as features](assets/validation_all_features_01.jpg)
 
-![Curvas ROC obtidas no cenário 01 usando todas as features](/assets/ROC_all_features_01.jpg)
+![Curvas ROC obtidas no cenário 01 usando todas as features](assets/ROC_all_features_01.jpg)
 
 Cenário 02:
 
-![Resultados obtidos no cenário 02 usando todas as features](/assets/validation_all_features_02.jpg)
+![Resultados obtidos no cenário 02 usando todas as features](assets/validation_all_features_02.jpg)
 
-![Curvas ROC obtidas no cenário 02 usando todas as features](/assets/ROC_all_features_02.jpg)
+![Curvas ROC obtidas no cenário 02 usando todas as features](assets/ROC_all_features_02.jpg)
 
 É importante notar que, como comentado na metodologia, no nosso caso, a sensibilidade (ou _recall_) corresponde ao percentual de pacientes classificados como "não morreu" (ou zero para DEATH_FN) dentre aqueles que efetivamente não morreram, enquanto a especificidade corresponde ao percentual de pacientes classificados como "morreu" (ou um para DEATH_FN) dentre aqueles que efetivamente morreram. Para confirmar essa afirmação, observe a matriz de confusão obtida para a árvore de decisão no cenário 01, apresentada abaixo.
 
-![Matriz de confusão obtida para a árvore de decisão no cenário 01](/assets/confusion_tree_all_features_01.jpg)
+![Matriz de confusão obtida para a árvore de decisão no cenário 01](assets/confusion_tree_all_features_01.jpg)
 
 A sensibilidade para esse classificador indicada pelo _Test and Score_ foi de cerca de 78%, enquanto a especificidade foi de cerca de 36%. Ao analisar sua matriz de confusão, percebemos claramente que o classificador se desempenhou muito melhor na classificação dos pacientes que não morreram (103 corretamente classificados dos 113 que não morreram) do que na classificação daqueles que morreram (6 corretamente classificados dos 26 que não morreram). Isso provavelmente ocorreu devido a uma questão de categorização. Nosso _target_ (DEATH_FN), foi definido como 1 no caso em que os pacientes morreram. Seria intuitivo pensar que os resultados positivos (geralmente atrelados à sensibilidade) são justamente os pacientes que morreram. No entanto, ao que tudo indica, o _Test and Score_ atrelou a sensibilidade aos pacientes categorizados como zero (ou seja, que não morreram em decorrência da NF), considerando como resultado positivo o desfecho de sobrevivência.
 
@@ -213,15 +213,15 @@ As imagens abaixo apresentam as curvas ROC obtidas em cada um dos cenário, bem 
 
 Treino no cenário 01 e teste no cenário 02:
 
-![Curva ROC obtida treinando no cenário 01 e testando no cenário 02](/assets/ROC_train01_test02.jpg)
+![Curva ROC obtida treinando no cenário 01 e testando no cenário 02](assets/ROC_train01_test02.jpg)
 
-![Matriz de confusão obtida treinando no cenário 01 e testando no cenário02](/assets/confusion_train01_test02.jpg)
+![Matriz de confusão obtida treinando no cenário 01 e testando no cenário02](assets/confusion_train01_test02.jpg)
 
 Treino no cenário 02 e teste no cenário 01:
 
-![Curva ROC obtida treinando no cenário 02 e testando no cenário 01](/assets/ROC_train02_test01.jpg)
+![Curva ROC obtida treinando no cenário 02 e testando no cenário 01](assets/ROC_train02_test01.jpg)
 
-![Matriz de confusão obtida treinando no cenário 02 e testando no cenário01](/assets/confusion_train02_test01.jpg)
+![Matriz de confusão obtida treinando no cenário 02 e testando no cenário01](assets/confusion_train02_test01.jpg)
 
 É possível perceber que, assim como no caso do treino/validação, o modelo apresentou mais dificuldade para classificar corretamente os pacientes que morreram em decorrência da NF. Ainda, o desempenho do modelo treinado no cenário 01 e testado no cenário 02 foi consideravelmente melhor do que no caso oposto.
 
@@ -234,9 +234,9 @@ Finalmente, exploramos a floresta aleatória com os dados combinados dos dois ce
 
 As imagens abaixo apresentam a curva ROC obtida no processo de teste, bem como a matriz de confusão correspondente.
 
-![Curva ROC obtida no teste com os dois cenários combinados](/assets/ROC_test_combined.jpg)
+![Curva ROC obtida no teste com os dois cenários combinados](assets/ROC_test_combined.jpg)
 
-![Matriz de confusão obtida no teste com os dois cenários combinados](/assets/confusion_test_combined.jpg)
+![Matriz de confusão obtida no teste com os dois cenários combinados](assets/confusion_test_combined.jpg)
 
 De forma semelhante aos resultados obtidos anteriormente, novamente o modelo apresentou maior dificuldade para classificar corretamente os pacientes que morreram em decorrência da NF. No entanto, dessa vez, os resultados para a sensibilidade e a especificidade ficaram um pouco mais próximos um do outro. Vale notar também que os resultados obtidos no teste considerando ambos os cenários conjuntamente foram melhores do que os obtidos ao treinar com um cenário e testar com o outro.
 
