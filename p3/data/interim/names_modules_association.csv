@@ -1,0 +1,96 @@
+﻿Abbr;github name;total n (nearest thousand);community (7-module consensus);condition (AHRQ full name)
+ADHD;AHRQ_AttentionDeficitDO_DT;37;PSYCH;attention deficit hyperactivity disorder
+Adj;AHRQ_AdjustmentDO_DT;145;PSYCH;adjustment disorder
+Alc;NEPEC_DXALC_DT;81;PSYCH;alcohol use disorder
+Ane;AHRQ_Anemia_DT;34;HEM/CIRC;anaemia
+AnxO;NEPEC_ANXunsp_DT;192;PSYCH;anxiety
+ArI;AHRQ_InfectiveArthritis_DT;2;ID;infective arthritis
+Art;AHRQ_DisOfArteries_DT;69;HEM/CIRC;disorder of arterial system
+Ast;AHRQ_Asthma_DT;45;RESP;asthma
+Bac;AHRQ_BacterialInfection_DT;22;ID;bacterial infection
+Back;AHRQ_Spondylosis_DT;409;MSK;back pain or spondylosis
+BIj;AHRQ_IntracranialInjury_DT;72;NEURO;intracranial injury
+Bil;AHRQ_BiliaryTractDs_DT;9;HEM/CIRC;biliary tract disorder
+Bone;AHRQ_OthBoneDs_DT;36;MSK;bone disorder
+BPD;NEPEC_AFBPDX_DT;32;PSYCH;bipolar disorder
+Bur;AHRQ_Burns_DT;3;ID;burns
+Ch;AHRQ_DOInChildhood_DT;2;PSYCH;childhood psychiatric disorder (including elimination and tic disorders)
+CIj;AHRQ_CrushingInjuryOrInternalIn0;3;MSK;crushing/internal injury
+Coag;AHRQ_CoagulationDO_DT;7;HEM/CIRC;coagulation disorder
+Coma;AHRQ_ComaBrainDamage_DT;2;NEURO;coma or brain damage
+Conn;AHRQ_OthConnectiveTissueDs_DT;249;MSK;connective tissue disorder
+Cong;anomdxDT;22;MSK;congenital anomaly
+COPD;AHRQ_COPDAndBronchiectasis_DT;21;RESP;COPD or bronchiectasis
+CVD;AHRQ_CerebrovascularDs_DT;8;NEURO;cerebrovascular disorder
+Def;AHRQ_AcquiredDeformities_DT;65;MSK;acquired deformity
+Dem;AHRQ_DementiaAndOthDO_DT;33;PSYCH;dementia or other cognitive disorder
+DepO;NEPEC_DXODep_DT;272;PSYCH;minor depression
+Dev;AHRQ_DevelopmentalDO_DT;4;PSYCH;developmental disorder (including communication disorders and intellectual disability)
+DM;dmdxDT;79;ENDO/METAB;diabetes mellitus
+Drg;NEPEC_DXDRG_DT;84;PSYCH;substance use disorder (other than alcohol)
+Ear;AHRQ_EarConditions_DT;279;MSK;ear conditions
+Ele;AHRQ_FluidAndElectrolyteDO_DT;21;HEM/CIRC;fluid or electrolyte disorder
+End;AHRQ_OthEndocrineDO_DT;26;ENDO/METAB;endocrine disorder
+Ep;AHRQ_EpilepsyConvulsions_DT;14;NEURO;epilepsy or convulsions
+Eye;AHRQ_EyeDO_DT;255;RESP;eye condition
+Fr;AHRQ_Fractures_DT;49;MSK;fractures
+GAD;NEPEC_ANXgen_DT;44;PSYCH;generalized anxiety disorder
+Gas;AHRQ_NoninfectiousGastroenterit0;12;GI;non-infectious gastroenteritis
+Gen;genitaldxDT;140;ENDO/METAB;genital disorder
+GIH;AHRQ_GIHemorrhage_DT;30;GI;gastrointestinal haemorrhage
+GIO;AHRQ_OthGIDO_DT;103;GI;gastrointestinal disorder
+Gou;AHRQ_GoutAndOth_DT;14;ENDO/METAB;gout or other crystal arthropathy
+HA;AHRQ_Headache_DT;174;NEURO;headache
+Hea;AHRQ_DisOfTheHeart_DT;122;HEM/CIRC;disorder of the heart
+HeO;AHRQ_OthHematologicConditions_DT;4;HEM/CIRC;hematologic condition
+Her;AHRQ_AbdominalHernia_DT;31;GI;abdominal hernia
+HTN;AHRQ_Hypertension_DT;175;ENDO/METAB;hypertension
+IIn;AHRQ_IntestinalInfection_DT;5;GI;intestinal infection
+IjO;AHRQ_OthInjuriesExternalCauses_D;67;MSK;external injuries
+Imm;AHRQ_ImmunityDO_DT;1;RESP;immunity disorder
+Imp;AHRQ_ImpulseControlDONEC_DT;9;PSYCH;impulse control disorder
+InO;AHRQ_OthInfections_DT;7;RESP;infection
+Jaw;AHRQ_DOOfTeethAndJaw_DT;215;RESP;tooth or jaw disorder
+LGI;AHRQ_LowerGIDO_DT;30;GI;lower gastrointestinal disorder
+Lip;AHRQ_DOOfLipidMetabolism_DT;246;ENDO/METAB;disorder of lipid metabolism
+Liv;AHRQ_LiverDs_DT;58;HEM/CIRC;liver disorder
+LRO;AHRQ_OthLowerRespiratoryDs_DT;104;RESP;lower respiratory disorder
+Lup;AHRQ_SystemicLupus_DT;0;RESP;systemic lupus
+MDD;NEPEC_MDD_DT;186;PSYCH;major depressive disorder
+Mou;AHRQ_DisOfMouth_DT;10;RESP;mouth disorder
+Myc;AHRQ_Mycoses_DT;58;RESP;mycoses
+Neo;cancerdxDT;95;GI;neoplasm or malignancy
+NIn;AHRQ_CNSInfection_DT;1;NEURO;central nervous system infection
+NSC;AHRQ_OthNervousSystemDO_DT;21;NEURO;hereditary and degenerative nervous system conditions
+NSO;AHRQ_NSConditions_DT;172;NEURO;nervous system disorders
+NTJ;AHRQ_NontraumaticJointDO_DT;435;MSK;non-traumatic joint disorder
+NuO;AHRQ_OthNutritionalEndocrineDO_D;224;ENDO/METAB;nutritional, endocrine or metabolic disorder
+Nut;AHRQ_NutritionalDeficiencies_DT;73;ENDO/METAB;nutritional deficiency
+Ost;AHRQ_Osteoporosis_DT;2;MSK;osteoporosis
+Pan;AHRQ_PancreaticDO_DT;4;HEM/CIRC;pancreatic disorder
+Par;AHRQ_Paralysis_DT;3;NEURO;paralysis
+Per;AHRQ_PersonalityDO_DT;23;PSYCH;personality disorder
+PFr;AHRQ_PathologicalFracture_DT;1;MSK;pathological fracture
+Ple;AHRQ_Pleurisy_DT;4;HEM/CIRC;pleurisy, pneumothorax or pulmonary collapse
+Poi;AHRQ_Poisoning_DT;6;HEM/CIRC;poisoning
+PTSD;NEPEC_PTSD_DT;354;PSYCH;posttraumatic stress disorder
+RF;AHRQ_RespiratoryFailure_DT;3;HEM/CIRC;respiratory failure
+RIn;AHRQ_RespiratoryInfections_DT;147;RESP;respiratory infection
+Sch;NEPEC_SCHZ_DT;8;PSYCH;schizophrenia or schizoaffective disorder
+SIn;AHRQ_SkinInfections_DT;43;ID;skin infections
+SInf;AHRQ_OthInflamCondOfSkin_DT;33;RESP;inflammatory condition of skin
+SkO;AHRQ_OthSkinDO_DT;166;RESP;skin disorder
+Spi;AHRQ_SpinalCordInjury_DT;1;NEURO;spinal cord injury
+Spr;AHRQ_SprainsAndStrains_DT;88;MSK;sprain or strain
+Sui;AHRQ_SuicideAndSelfInjury_DT;37;PSYCH;suicide or self-injurious behaviour
+SuIj;AHRQ_SuperficialInjury_DT;30;MSK;superficial injury
+Thy;AHRQ_ThyroidDO_DT;6;ENDO/METAB;thyroid disorder
+TJ;AHRQ_JointDisorderTraumarelated_;65;MSK;traumatic joint disorder
+UGI;AHRQ_UpperGIDO_DT;164;GI;upper gastrointestinal disorder
+Ulc;AHRQ_ChronicUlcerOfSkin_DT;2;ID;chronic skin ulcer
+Uri;AHRQ_DisOfTheUrinarySystem_DT;97;HEM/CIRC;urinary system disorder
+URO;AHRQ_OthUpperRespiratoryDs_DT;132;RESP;upper respiratory disorder
+Vei;AHRQ_DisOfVeins_DT;48;GI;disorder of venous system
+Vir;AHRQ_ViralInfection_DT;61;RESP;viral infection
+WBC;AHRQ_DisOfWhiteBloodCells_DT;14;HEM/CIRC;disorder of white blood cells
+Wou;AHRQ_OpenWounds_DT;19;ID;open wounds
