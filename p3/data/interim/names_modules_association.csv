@@ -1,4 +1,4 @@
-﻿Abbr;github name;total n (nearest thousand);community (7-module consensus);condition (AHRQ full name)
+﻿Abbr;github name;total n (nearest thousand);community (7_module consensus);condition (AHRQ full name)
 ADHD;AHRQ_AttentionDeficitDO_DT;37;PSYCH;attention deficit hyperactivity disorder
 Adj;AHRQ_AdjustmentDO_DT;145;PSYCH;adjustment disorder
 Alc;NEPEC_DXALC_DT;81;PSYCH;alcohol use disorder
@@ -35,7 +35,7 @@ Ep;AHRQ_EpilepsyConvulsions_DT;14;NEURO;epilepsy or convulsions
 Eye;AHRQ_EyeDO_DT;255;RESP;eye condition
 Fr;AHRQ_Fractures_DT;49;MSK;fractures
 GAD;NEPEC_ANXgen_DT;44;PSYCH;generalized anxiety disorder
-Gas;AHRQ_NoninfectiousGastroenterit0;12;GI;non-infectious gastroenteritis
+Gas;AHRQ_NoninfectiousGastroenterit0;12;GI;non_infectious gastroenteritis
 Gen;genitaldxDT;140;ENDO/METAB;genital disorder
 GIH;AHRQ_GIHemorrhage_DT;30;GI;gastrointestinal haemorrhage
 GIO;AHRQ_OthGIDO_DT;103;GI;gastrointestinal disorder
@@ -63,7 +63,7 @@ Neo;cancerdxDT;95;GI;neoplasm or malignancy
 NIn;AHRQ_CNSInfection_DT;1;NEURO;central nervous system infection
 NSC;AHRQ_OthNervousSystemDO_DT;21;NEURO;hereditary and degenerative nervous system conditions
 NSO;AHRQ_NSConditions_DT;172;NEURO;nervous system disorders
-NTJ;AHRQ_NontraumaticJointDO_DT;435;MSK;non-traumatic joint disorder
+NTJ;AHRQ_NontraumaticJointDO_DT;435;MSK;non_traumatic joint disorder
 NuO;AHRQ_OthNutritionalEndocrineDO_D;224;ENDO/METAB;nutritional, endocrine or metabolic disorder
 Nut;AHRQ_NutritionalDeficiencies_DT;73;ENDO/METAB;nutritional deficiency
 Ost;AHRQ_Osteoporosis_DT;2;MSK;osteoporosis
@@ -82,7 +82,7 @@ SInf;AHRQ_OthInflamCondOfSkin_DT;33;RESP;inflammatory condition of skin
 SkO;AHRQ_OthSkinDO_DT;166;RESP;skin disorder
 Spi;AHRQ_SpinalCordInjury_DT;1;NEURO;spinal cord injury
 Spr;AHRQ_SprainsAndStrains_DT;88;MSK;sprain or strain
-Sui;AHRQ_SuicideAndSelfInjury_DT;37;PSYCH;suicide or self-injurious behaviour
+Sui;AHRQ_SuicideAndSelfInjury_DT;37;PSYCH;suicide or self_injurious behaviour
 SuIj;AHRQ_SuperficialInjury_DT;30;MSK;superficial injury
 Thy;AHRQ_ThyroidDO_DT;6;ENDO/METAB;thyroid disorder
 TJ;AHRQ_JointDisorderTraumarelated_;65;MSK;traumatic joint disorder
