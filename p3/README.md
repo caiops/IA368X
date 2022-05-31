@@ -19,7 +19,15 @@ ALEXANDER-BLOCH, Aaron F. et al. The architecture of co-morbidity networks of ph
 
 <!-- Escreva um breve resumo do artigo (com as suas palavras, não deve ser copiado texto do artigo). -->
 
+A co-ocorrência de condições médicas e/ou psiquiátricas tem um grande impacto nos custos atrelados à saúde, interferindo na eficácia de tratamentos e criando limitações aos sistemas de classificação diagnóstica, por exemplo. Dessa forma, a ideia do artigo é utilizar diversas condições de saúde como parte de uma rede de comorbidade, na tentativa de detectar e quantificar tendências gerais que não seriam possíveis de se observar utilizando outras abordagens.
 
+Foram utilizados registros eletrônicos de saúde de quase 1 milhão de veteranos militares dos EUA - população escolhida devido ao grande número de registros disponíveis e à desproporcionalidade com a qual é impactada por condições psiquiátricas. Então, extraiu-se 95 condições médicas e psiquiátrias como os nós das redes. A partir de modelos de regressão logística, determinou-se as chances de uma condição afetar o diagnóstico de outra, de modo que as arestas das redes foram formadas por relações positivas (_log odds_ > 1) e significativas (p < 0.05) entre os pares de condições. Assim, cada aresta representa o aumento do _log odds_ (probabilidade logística??) de uma condição dada outra condição, gerando uma rede direcionada.
+
+As forças internas e externas - soma dos pesos das arestas direcionadas para um determinado nó ou saindo dele, respetivamente - foram utilizadas para indicar a capacidade de outras condições em predizer o diagnóstico de uma determinada condição ou a capacidade da condição em questão de predizer o diagnóstico de outras, respectivamente.
+
+se muitas condições podem prever o diagnóstico de uma determinada condição ou se a condição em questão pode predizer 
+
+A força - propriedade da rede dada pela soma dos pesos de todas as arestas de um determinado nó - foi utilizada para medir a comorbidade de uma condição, dividida entre "força interna" - considerando apenas as arestas direcionadas para o nó - e "força externa" - considerando apenas as arestas saindo do nó.
 
 ## Breve descrição do experimento/análise do artigo que foi replicado
 
