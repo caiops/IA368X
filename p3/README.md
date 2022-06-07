@@ -113,7 +113,7 @@ Todos os processamentos e análises descritos nesta seção relacionados ao Cyto
 
 ### Análises da rede de condições psiquiátricas
 
-Após os processamentos realizados, a rede de condições psiquiátricas obtida foi composta por 17 nós e 173 arestas. Ainda, a detecção de comunidades baseada em _edge betweeness_ resultou em três comunidades. A figura abaixo apresenta a rede de condições psiquiátricas completa, sem nenhuma modificação ou filtragem.
+Após os processamentos realizados, a rede de condições psiquiátricas obtida continha 17 nós e 173 arestas. Ainda, a detecção de comunidades baseada em _edge betweeness_ resultou em três comunidades. A figura abaixo apresenta a rede de condições psiquiátricas completa, sem nenhuma modificação ou filtragem.
 
 ![Rede de condições psiquiátricas completa](assets/network_psych_raw.jpg)
 
@@ -124,6 +124,15 @@ As figuras abaixo apresentam a árvore geradora máxima + as 10% arestas de maio
 ![Rede de condições psiquiátricas simplificada para melhor visualização](assets/network_psych_vis.jpg)
 ![Rede de condições psiquiátricas do artigo com três módulos](assets/network_psych_article.jpg)
 
+
+
+
+
+Nossa ideia inicial era de replicar também a detecção de comunidades na rede de condições médicas, bem como realizar a quantificação de comorbidade entre os módulos utilizando a rede completa - inclusive, no notebook que processa os dados para gerar a tabela das redes, geramos arquivos referentes tanto às redes psiquiátricas e médicas separadamente, quanto à rede completa. No entanto, ao realizar a análise para a rede de condições psiquiátricas, acabamos nos deparando com um processo mais trabalhoso do que o esperado e acabamos optando por replicar apenas os experimentos relacionados a ela.
+
+
+
+EXPLICAR MELHOR A QUESTÃO DA ÁRVORE GERADORA...
 
 LEMBRAR DE DISCUTIR A QUESTÃO DO ODDS E LOG ODDS E QUE O ARTIGO NÃO DEIXOU SUPER CLARO O QUE FOI CONSIDERADO COMO RELAÇÕES POSITIVAS E TAL...
 
