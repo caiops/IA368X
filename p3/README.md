@@ -111,7 +111,7 @@ Todos os processamentos e análises descritos nesta seção relacionados ao Cyto
 
 <!-- Apresente os resultados obtidos pela sua adaptação. Confronte os seus resultados com aqueles do artigo. Esta seção opcionalmente pode ser apresentada em conjunto com o método. -->
 
-### Análises da rede de condições psiquiátricas
+### Detecção de comunidades na rede de condições psiquiátricas
 
 Após os processamentos realizados, a rede de condições psiquiátricas obtida continha 17 nós e 173 arestas. Ainda, a detecção de comunidades baseada em _edge betweeness_ resultou em três comunidades. A figura abaixo apresenta a rede de condições psiquiátricas completa, sem nenhuma modificação ou filtragem.
 
@@ -129,7 +129,20 @@ Para facilitar a comparação, tentamos organizar a posição dos nós da nossa 
 
 Quanto às comunidades detectadas, podemos ver que a comunidade destacada em azul foi exatamente a mesma tanto na nossa rede quanto na rede do artigo (independente da quantidade de partições). Ela inclui as condições déficit de atenção com hiperatividade (ADHD), transtornos psiquiátricos infantis (Ch) e transtornos do desenvolvimento (Dev), sendo definida no artigo como módulo do desenvolvimento. A comunidade destacada em laranja na nossa rede se aproximou bastante da comunidade em vermelho detectada no artigo para a partição em 6 módulos - definida como módulo de depressão/ansiedade, por conter transtorno depressivo maior (MDD), depresão menor (DepO), transtorno de ansiedade generalizada (GAD) e outros tipos de ansiedade (AnxO), além dos distúrbios de ajuste (Adj). A única diferença se deu na condição depressão menor (DepO), que não foi incluída na nossa comunidade em laranja, mas estava incluída na comunidade em vermelho na patição em 6 módulos. 
 
+Temos ainda a comunidade em verde obtida na nossa rede. Ela é parecida com a comunidade em verde encontrada no artigo para a partição em três módulos - definida como um módulo relativamente heterogêneo. A diferença se deu pelo fato da comunidade que encontramos incluir a depressão menor (DepO) e não incluir o transtorno de uso de álcool (Alc). Por fim, a detecção de comunidades que aplicamos acabou resultando em três nós que não foram incluídos em nenhuma comunidade: transtorno de uso de álcool (Alc), demência (Dem) e transtorno de estresse pós-traumático (PTSD). É interessante notar também que, na partição em 6 módulos encontrada no artigo, a demência e o transtorno de estresse pós-traumático geraram um módulo próprio (em roxo na última figura apresentada até aqui).
 
+### Análise das forças internas e externas dos nós
+
+A tabela abaixo apresenta os resultados obtidos para as forças interna e externa (absoluta ou relativa) de alguns nós. Os três primeiros nós são aqueles com maior força externa absoluta (que também apresentaram as maiores forças externas relativas). Os três nós seguintes são aqueles que apresentaram maior força interna absoluta. Já os últimos cinco nós são aqueles que apresentaram maior força interna relativa. Os valores em negrito indicam os três maiores valores obtidos para cada métrica (considerando todos os nós da rede, não apenas os apresentados na tabela). Já os nós em itálico indicam aqueles que foram destacados no artigo como preditores ou previsíveis.
+
+|           Métrica \ Nó           |  *DepO* |  *Dem*  | *PTSD*  | Sui       | Per       | Sch      | *Alc*  | Ch       | MDD      | GAD  | *ADHD* |
+|:----------------------:|:---------:|:---------:|-----------|-----------|-----------|----------|----------|----------|----------|------|----------|
+| Força externa absoluta | **17.51** | **12.13** | **10.53** | 6.42      | 8.24      | 8.43     | 1.31     | 3.37     | 2.17     | 1.69 | 3.42     |
+| Força interna absoluta | 4.36      | 4.30      | 3.62      | **10.61** | **10.40** | **9.39** | 6.09     | 7.88     | 4.79     | 3.26 | 6.27     |
+| Força externa relativa | **4.01**  | **2.82**  | **2.91**  | 0.61      | 0.79      | 0.90     | 0.22     | 0.43     | 0.45     | 0.52 | 0.55     |
+| Força interna relativa | 0.25      | 0.35      | 0.34      | 1.65      | 1.26      | 1.11     | **4.64** | **2.34** | **2.21** | 1.93 | 1.83     |
+
+### Discussões gerais
 
 Nossa ideia inicial era de replicar também a detecção de comunidades na rede de condições médicas, bem como realizar a quantificação de comorbidade entre os módulos utilizando a rede completa - inclusive, no notebook que processa os dados para gerar a tabela das redes, geramos arquivos referentes tanto às redes psiquiátricas e médicas separadamente, quanto à rede completa. No entanto, ao realizar a análise para a rede de condições psiquiátricas, acabamos nos deparando com um processo mais trabalhoso do que o esperado e acabamos optando por replicar apenas os experimentos relacionados a ela.
 
