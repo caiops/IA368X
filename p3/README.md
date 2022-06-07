@@ -123,8 +123,11 @@ As figuras abaixo apresentam a árvore geradora máxima + as 10% arestas de maio
 
 ![Rede de condições psiquiátricas simplificada para melhor visualização](assets/network_psych_vis.jpg)
 ![Rede de condições psiquiátricas do artigo com três módulos](assets/network_psych_article.jpg)
+![Rede de condições psiquiátricas do artigo com seis módulos](assets/network_psych_article_6mod.jpg)
 
+Para facilitar a comparação, tentamos organizar a posição dos nós da nossa rede de forma semelhante à da rede do artigo. Podemos ver que a rede que geramos, apesar de bastante parecida com a rede apresentada no artigo, possui algumas diferenças. Note, por exemplo, que a nossa rede possui uma aresta ligando os nós ADHD e Dev - que não estava presente na rede do artigo - ou a aresta da nossa rede ligando os nós DepO e Adj - que está presente na rede do artigo, mas na direção contrária. Ainda, a rede do artigo não apresenta nenhum mapeamento relacionado ao peso das arestas (_log odds_), o que acaba dificultando um pouco uma comparação mais consistente.
 
+Quanto às comunidades detectadas, podemos ver que a comunidade destacada em azul foi exatamente a mesma tanto na nossa rede quanto na rede do artigo. Ela inclui as condições déficit de atenção com hiperatividade (ADHD), transtornos psiquiátricos infantis (Ch) e transtornos do desenvolvimento (Dev), sendo definida no artigo como módulo do desenvolvimento. A comunidade destacada em laranja na nossa rede se aproximou bastante da comunidade em vermelho detectada no artigo para a partição em 6 módulos 
 
 
 
