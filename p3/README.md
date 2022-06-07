@@ -68,7 +68,7 @@ Vale notar que consideramos replicar também as análises com respeito ao sexo d
 
 ### Transformação e processamento dos dados
 
-Os arquivos "comorbidity_odds_matrix.csv" (_log odds_) e "comorbidity_pmat_matrix.csv" (p-valores) - disponíveis no GitHub atrelado ao artigo - foram utilizados como base para gerar as redes. No entanto, ambos os arquivos estavam na forma de matrizes 95x95, sendo necessário "achatá-los" para o formato aceito pelo Cytoscape (a ferramenta de processamento de redes utilizada neste projeto), além de descartar os valores da diagonal principal (que relaciona uma condição com ela mesma). Após esse processo, obtivemos duas matrizes: uma com colunas i (relativa às condições das linhas da matriz 95x95), j (relativa às condições das colunas da matriz 95x95) e _odds_ (_log odds_ de comorbidade da condição i dada a condição j); outra com colunas i, j e os respectivos p-valores.
+Os arquivos "comorbidity_odds_matrix.csv" (_log odds_) e "comorbidity_pmat_matrix.csv" (p-valores) - disponíveis no GitHub atrelado ao artigo - foram utilizados como base para gerar as redes. No entanto, ambos os arquivos estavam na forma de matrizes 95x95, sendo necessário "achatá-los" para o formato aceito pelo Cytoscape (a ferramenta de processamento de redes utilizada neste projeto), além de descartar os valores da diagonal principal (que relaciona uma condição com ela mesma). Após esse processo, obtivemos duas matrizes: uma com colunas i (relativa às condições das linhas da matriz 95x95), j (relativa às condições das colunas da matriz 95x95) e _log odds_ (_log odds_ de comorbidade da condição i dada a condição j); outra com colunas i, j e os respectivos p-valores.
 
 Essas duas tabelas foram fundidas em uma única e a matriz obtida foi filtrada para considerar apenas as linhas com relações positivas (_Log odds_ > 0, o equivalente a _odds ratio_ > 1) e estatisticamente significativas (p-valor < 0.05), gerando uma matriz com as comorbidades de interesse. COMENTAR MELHOR SOBRE ESSA QUESTÃO DO ODDS RATIO?
 
@@ -82,11 +82,39 @@ Todas as transformações e processamentos descritos nesta subseção foram real
 
 ### Análises da rede de condições psiquiátricas
 
+O arquivo referente à rede de condições psiquiátricas foi importado para o Cytoscape a partir da opção _Import Network from File System_, de modo que a coluna j foi definida como _source node_, a coluna i como _target node_ e a coluna _log odds_ como _edge attribute_. O estilo da rede foi alterado para obter uma rede direcionada e uma melhor visualização dos nomes dos nós. Ainda, a espessura das arestas foi mapeada para refletir o _log odds_ correspondente, aplicando um mapeamento contínuo. Ainda, aplicamos uma análise de rede para obter alguns dados interessantes sobre ela, indicando que a rede era direcionada.
 
+Como não sabíamos como aplicar o algoritmo de Louvain generalizado através do Cytoscape, nem possuíamos muito conhecimento a respeito dele, optamos por realizar uma detecção de comunidades mais simplificada.
+
+De modo a nos aproximar da análise feita no artigo, tentamos realizar a detecção de comunidades utilizando o algoritmo de Louvain, através do "app" _Community Detection_. Definimos a coluna _log odds_ para ser utilizada como peso das arestas na detecção de comunidades e indicamos que a rede era direcionada. Entretanto, a rede obtida consistiu em apenas uma comunidade composta por dois nós.
+
+Diante do resultado insatisfatório, decidimos aplicar outra metodologia para a detecção de comunidades. Optamos por uma detecção por _edge betweeness_, através do "app" CyFinder. Definimos o _log odds_ para ser utilizado como peso e selecionamos a opção de criar novas redes filhas para as comunidades detectadas. Os resultados obtidos foram mais satisfatórios e relativamente próximos dos obtidos no artigo, portanto, definimos essa abordagem como a escolhida para a detecção de comunidades.
+
+A ideia de _edge betweeness_ pode ser definida como: ao encontrar os menores caminhos entre todos os pares de nós da rede, o _edge betweeness_ de uma aresta é o número desses menores caminhos que incluem a aresta em questão. Ao selecionar um peso (no nosso caso o _log odds_), os valores de _edge betweeness_ são ajustados considerando os pesos das arestas. O algoritmo aplicado pelo CyFinder começa com uma comunidade com todos os nós, remove a aresta com o maior valor de _edge betweeness_, gera como saída os componentes conectados (as comunidades obtidas na iteração) e recalcula os valores, prosseguindo com o processo iterativamente. Ao final do processo, as comunidades com melhor modularidade são obtidas[^1].
+
+Criamos uma nova coluna na tabela de nós (_community_), atribuindo valores diferentes para os nós de cada comunidade encontrada. Então, mapeamos a cor dos nós de forma discreta, de modo que cada conjunto de nós pertencente a uma mesma comunidade possuíssem uma cor específica e atribuindo uma outra cor para os nós que não foram incluídos em nenhuma comunidade.
+
+Passamos então à análise das forças interna e externa de cada nó da rede, que foi realizada através do notebook "Strength_analysis_psych.ipynb" (disponível no diretório \notebooks). Para cada _source node_ (coluna j) da rede, calculamos a soma dos _log odds_ correspondentes de modo a obter a força externa do nó. Do mesmo modo, para cada _target node_ (coluna i) da rede, calculamos a soma dos _log odds_ correspondentes de modo a obter a força interna do nó. Assim, geramos uma tabela relacionando cada nó da rede com sua força interna e externa ("psych_strength.csv", que pode ser encontrada no diretório /data/processed).
+
+O arquivo obtido foi importado para a tabela de nós da rede no Cytoscape e, de forma semelhante ao que foi feito no artigo, mapeamos o tamanho dos nós de forma contínua com base nos valores de força interna e a espessura da borda dos nós com base nos valores de força externa. Note que, no artigo, a força interna foi na verdade mapeada para o círculo interno colorido, mas não conseguimos realizar tal mapeamento e optamos por utilizar o tamanho do nó.
+
+Como a rede obtida era de difícil visualização devido à grande quantidade de arestas, de forma semelhante ao que foi feito no artigo, encontramos a árvore geradora máxima utilizando o algoritmo de Kruskal através do "app" CyFinder, utilizando os valores de _log odds_ como pesos e selecionando a opção de criar novas redes filhas. O algoritmo de Kruskal simplesmente seleciona as arestas cujos pesos possuem prioridade, nesse caso, os pesos maiores[^1]. Diferentemente do artigo, utilizamos a árvore geradora máxima e não a mínima uma vez que os valores de _log odds_ representam quão forte é a relação de comorbidade entre as condições.
+
+Após obter a árvore geradora máxima, ainda seguindo o que foi feito no artigo, adicionamos a ela os 10% das arestas que possuíam os pesos mais altos. Para isso, exportamos a tabela de nós da árvore geradora máxima obtida (arquivo "network_psych_Kruskal_Max_Spanning_Tree.csv", disponível no diretório /data/interim). Através do notebook "Psych_max_ST_plus_10percent_high_edges.ipynb" (disponível no diretório \notebooks), fizemos a leitura da rede de condições psiquiátricas e da tabela de nós da árvore geradora máxima dessa rede, processamos esta última de modo a obter os nós e seus correspondentes valores de _log odds_ no mesmo formato da primeira, filtramos a tabela da rede de condições psiquiátricas para obter as 10% arestas com pesos mais altos e concatenamos com a tabela da árvore geradora máxima processada (removendo possíveis linhas duplicadas após a concateção).
+
+Tal rede de condições psiquiátricas voltada para uma melhor visualização (arquivo "network_psych_vis.csv", consistindo na árvore geradora máxima + as 10% arestas de maior peso da rede de condições psiquiátricas, disponível no diretório \data\processed) foi então importada para o Cytoscape. Novamente, importamos o arquivo das forças internas e externas dos nós para a tabela de nós dessa nova rede e copiamos manualmente os valores relacionados à comunidade de cada nó, que manteve as mesmas configurações de estilo definidas anteriormente.
+
+Todos os processamentos e análises descritos nesta seção relacionados ao Cytoscape podem ser encontrados no arquivo "network_psych.cys", disponível no diretório /src.
 
 ## Resultados
 
 <!-- Apresente os resultados obtidos pela sua adaptação. Confronte os seus resultados com aqueles do artigo. Esta seção opcionalmente pode ser apresentada em conjunto com o método. -->
 
+COMENTAR QUE O MAPEAMENTO DAS FORÇAS INTERNAS E EXTERNAS PODE SER UM POUCO COMPLICADO DE INTERPRETAR VISUALMENTE E TAL
+
 
 LEMBRAR DE DISCUTIR A QUESTÃO DO ODDS E LOG ODDS E QUE O ARTIGO NÃO DEIXOU SUPER CLARO O QUE FOI CONSIDERADO COMO RELAÇÕES POSITIVAS E TAL...
+
+## Referências
+
+[^1]: TANVIR, Raihanul Bari; MARTIN, Cesar; MONDAL, Ananda Mohan. CyFinder Tutorial. Disponível em: <https://mondallab.cs.fiu.edu/wp-content/uploads/sites/50/2022/02/CyFinder-Tutorial_Final.pdf>.
