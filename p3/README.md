@@ -149,9 +149,15 @@ A tabela abaixo apresenta os resultados obtidos para as forças interna e extern
 
 Já com relação às condições previsíveis a partir de outras condições, as coisas ficam um pouco mais complicadas. Podemos ver que as condições que apresentaram maior força interna absoluta não foram as mesmas que apresentaram maior força interna relativa. O artigo apresentou o transtorno de uso de álcool (Alc) e o transtorno do déficit de atenção com hiperatividade (ADHD) como destaques em relação à sua relativa previsibilidade. Se considerarmos apenas a força interna relativa, podemos ver que chegamos à mesma conclusão quanto ao transtorno de uso de álcool, mas o mesmo não pode ser dito do ADHD - que não se destacou nem em pela força interna relativa nem pela força interna absoluta.
 
-É um tanto difícil comparar diretamente os resultados das forças interna e externa que encontramos com o que foi reportado no artigo, uma vez que o artigo não apresenta os valores que obteve, apenas comenta sobre condições que se destacaram. A figura abaixo foi extraída da figura 2 dos materiais suplementares do artigo e representa a relação entre as forças internas e externas dos nós da rede de condições psiquiátricas.
+É um tanto difícil comparar diretamente os resultados das forças interna e externa que encontramos com o que foi reportado no artigo, uma vez que o artigo não apresenta os valores que obteve, apenas comenta sobre condições que se destacaram. A figura abaixo foi extraída da figura 2 dos materiais suplementares do artigo e apresenta a relação entre as forças internas e externas dos nós da rede de condições psiquiátricas. Os rótulos foram mostrados apenas para os nós selecionados como discrepantes em termos da diferença entre força interna e força externa.
 
 ![Rede de condições psiquiátricas do artigo com seis módulos](assets/supplementary_fig_2.jpg)
+
+Através dessa imagem podemos notar algumas coisas:
+
+- As forças internas parecem ter passado de 20, enquanto as forças externas parecem ter passado de 60, valores que são muito mais altos do que aqueles que obtivemos;
+- Os transtornos psiquiátricos infantis (Ch) também se destacaram como sendo mais previsíveis - o que coindice com os resultados que obtivemos, já que essa condição foi a que apresentou a segunda maior força interna relativa nos nossos resultados;
+- Em contrapartida, a esquizofrenia (Sch) aparece como um dos destaques de condições preditoras. Esse resultado é bem diferente do que obtivemos para essa condição - no nosso caso, a esquizofrenia apresentou força interna maior que sua força externa, apesar dos dois valores terem sido bem próximos.
 
 ### Discussões gerais
 
