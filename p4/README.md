@@ -34,9 +34,11 @@ Todos os processamentos deste projeto foram realizados em Python (versão) atrav
 
 As imagens de ressonância dos pacientes (AVC ou EM) foram pré-processadas de diferentes formas para avaliar seu impacto na classificação. Realizamos testes com as imagens sem normalização - já que em atividades anteriores não notamos muito impacto na extração de atributos - ou normalizadas por Mínimo e Máximo - escolhida para testes devido à sua simplicidade e ao bom comportamento do intervalo de valores obtidos. Consideramos também as imagens completas ou apenas as regiões de interesse (lesões) definidas pelas máscaras.
 
-Note que, ao visualizar algumas imagens e máscaras, notamos algumas máscaras incorretas... (entraria aqui mesmo? falar do processo de seleção das máscaras...)
+Ao analisar os dados, notamos algumas máscaras incorretas - compreendendo mais da metade do cérebro do paciente, as vezes considerando o crânio ou até mesmo o fundo da imagem. Percebemos também que a grande maioria das máscaras possui poucos pixels de região de interesse, mas existem outliers com número muito elevado. Assim, após realizar alguns testes (considerando diferentes thresholds e visualizando as máscaras e imagens correspondentes), acabamos definindo um limite para as regiões de interesse de 30 mil pixels nas imagens de AVC e de 6 mil pixels nas imagens de EM, de modo a excluir as máscaras que apresentam erros gritantes.
 
-Avaliamos atributos baseados em histograma, Matriz de Co-Ocorrência (GLCM) e Matriz de Comprimento de Corrida (RLM). Através de análises anteriores, percebemos que os histogramas das imagens pareciam se assemelhar dentro de cada classe, mas apresentar comportamentos diferentes entre as classes. Dessa forma, focamos inicialmente nos atributos de histograma. Optamos por testar também os atributos de GLCM e RLM (... atributos de textura, tentar melhorar os resultados em conjunto com os de histograma...)
+Note que não possuímos propriedade suficiente para definir se uma máscara está ou não incorreta, esse processo deveria ser realizado com auxílio de um especialista. No entanto, como nos deparamos com problemas bem sérios em algumas máscaras, optamos por desconsiderar ao menos algumas delas.
+
+Avaliamos atributos baseados em histograma, Matriz de Co-Ocorrência (GLCM) e Matriz de Comprimento de Corrida (RLM). Através de análises anteriores, percebemos que os histogramas das imagens pareciam se assemelhar dentro de cada classe, mas apresentar comportamentos diferentes entre as classes. Dessa forma, focamos inicialmente nos atributos de histograma. Optamos por investigar também se outros atributos de textura (GLCM e RLM) ajudariam na classificação.
 
 Vale destacar que, ao aplicar as máscaras, a extração dos atributos variou um pouco. Para os de histograma, apenas os pixels da imagem correspondentes à região de interesse foram considerados. Já para os atributos de GLCM e RLM, foi necessário definir um bounding box, ou seja, cortar as imagens em retângulos que comportam toda a sua região de interesse, atribuindo intensidade zero aos pixels fora da região. A ideia era extrair atributos com base apenas nas lesões, já que estamos mais interessados em suas características. No entanto, isso não foi possível para os atributos de GLCM e RLM, de modo que a abordagem do bounding box pareceu a mais próxima possível.
 
@@ -44,7 +46,7 @@ Vale destacar que, ao aplicar as máscaras, a extração dos atributos variou um
 Vale discutir depois essa questão do bounding box!!!!!
 
 
-Os 25 atributos considerados (14 de histograma, 6 de GLCM e 5 de RLM) passaram por um processo de selelção empírica, aplicando diferentes conjuntos de atributos ao classificador e verificando aqueles que obtiveram os melhores resultados.
+Os 25 atributos considerados (14 de histograma, 6 de GLCM e 5 de RLM) passaram por um processo de seleção empírica, aplicando diferentes conjuntos de atributos ao classificador e selecionando aqueles que obtiveram os melhores resultados.
 
 ## Metodologia
 <!-- Descreva o classificador escolhido e o pipeline de treinamento: split dos dados de treinamento; escolha de parâmetros do classificador; validação cruzada; métricas de avaliação; resultados do treinamento do classificador usando tabelas e gráficos.
@@ -52,28 +54,38 @@ Justificar as escolhas. Esta parte do relatório pode ser copiada da Atividade 1
 
 FALAR DO SVM
 
-O conjunto de dados de treinamento disponibilizado é composto por 50 pacientes de AVC e 51 pacientes de EM. As imagens de 10 pacientes de cada classe (escolhidos aleatoriamente, cerca de 20% do conjunto) foram separadas em um conjunto de validação. As demais imagens foram utilizadas para uma validação cruzada dos modelos, considerando diferentes pipelines de pré-processamento <!--(com ou sem normalização, imagem inteira ou região de interesse, diferentes conjuntos de atributos) -->e parâmetros do classificador. Utilizamos uma validação cruzada com cinco folds e os modelos que apresentaram melhor desempenho foram aplicados ao conjunto de validação.
+A partir do conjunto de dados disponibilizado, consideramos apenas as imagens para as quais existe uma máscara correspondente (ou seja, apenas as imagens que certamente apresentam alguma lesão). Dessa forma, o conjunto de treinamento foi composto por 50 pacientes de AVC (581 imagens) e 51 pacientes de EM (630 imagens). Note que, nas análises utilizando as máscaras, o número de pacientes se manteve o mesmo, mas o número de imagens passou a ser 538 de AVC e 611 de EM devido às máscaras excluídas.
 
-As métricas de avaliação do modelo foram sua acurácia e o recall de cada classe (AVC ou EM) (pq?). No caso da validação cruzada, os melhores modelos foram definidos de acordo com as médias das métricas das cinco etapas de treino/validação.
+As imagens de 10 pacientes de cada classe (escolhidos aleatoriamente, cerca de 20% do conjunto) foram separadas em um conjunto de validação. As demais imagens foram utilizadas para uma validação cruzada dos modelos, considerando diferentes pipelines de pré-processamento <!--(com ou sem normalização, imagem inteira ou região de interesse, diferentes conjuntos de atributos) -->e parâmetros do classificador.
 
+Utilizamos uma validação cruzada com cinco folds. Para cada escolha de normalização e uso de máscara, selecionamos os conjuntos de atributos com melhor desempenho, então avaliamos o kernel do SVM (RBF, linear, polinomial ou sigmoid) e diferentes valores para os parâmetros C e gamma (que fazem o que?). Os modelos que apresentaram melhor desempenho foram treinados em todo o conjunto de validação cruzada e aplicados ao conjunto de validação.
 
+As métricas de avaliação do modelo foram sua acurácia e o recall de cada classe (AVC ou EM) (pq? a acurácia para ter uma visão geral do desempenho do classificador e o recall (tipo sensibilidade e especificidade) para observar o desempenho em cada classe mais de perto e seu balanceamento). No caso da validação cruzada, os melhores modelos foram definidos de acordo com as médias das métricas das cinco etapas de treino/validação.
 
-Após alguns testes realizados, obtivemos melhores resultados com as imagens normalizadas e a aplicação das máscaras.
+Os atributos de RLM não demonstraram bom desempenho e não foram utilizados pelo classificador final. Já os atributos de histograma realmente se destacaram, principalmente os percentis, a moda e a média. Em especial, o percentil 90 (p90) sozinho obteve mais de 91% de acurácia na validação cruzada não considerando as máscaras e de 93% ao considerá-las - em ambos os casos sem normalização. Além disso, ele estava entre os atributos utilizados por todos os melhores classificadores que obtivemos. Os atributos de GLCM ajudaram pontualmente no desempenho da classificação, mas aliados aos de histograma. Vale ressaltar que o fato de não termos conseguido obter os atributos de GLCM e RLM considerando apenas a região de interesse pode ter afetado significativamente seu comportamento.
 
-Nos primeiros testes realizados, o kernel rbf se desempenhou melhor do que os outros (linear, polinomial e sigmoid). Dessa forma, ele foi fixado para os testes seguintes...
+Nos primeiros resultados da validação cruzada, o kernel RBF mostrou melhor desempenho. Então, ele foi fixado para os testes seguintes. Os parâmetros C e gamma variaram para cada pipeline de pré-processamento avaliada. Por fim, obtivemos melhores resultados com as imagens normalizadas por Mínimo e Máximo e considerando as máscaras. A tabela abaixo apresenta os resultados obtidos pelos modelos aplicados ao conjunto de validação.
 
-Os atributos de RLM não demonstraram bom desempenho e não foram utilizados pelo classificador final.
+TABELA 1 - Características dos melhores modelos e seus resultados de validação.
+| Normalização |           Máscaras          |   Atributos de histograma   | Atributos de GLCM |   C  | gamma | Recall AVC | Recall EM | Acurácia |
+|:------------:|:---------------------------:|:---------------------------:|:-----------------:|:----:|:-----:|:----------:|:---------:|:--------:|
+|      Não     |             Não             |       p90, média e p75      |         -         |   1  | scale |    98.2%   |   78.0%   |   87.3%  |
+|      Não     |             Não             | percentis (50, 75, 90 e 99) |         -         | 1000 | scale |    99.1%   |   80.3%   |   89.0%  |
+|      Não     |             Sim             |      p90, moda e média      |         -         |  10  | 0.001 |    98.1%   |   83.2%   |   90.3%  |
+|      Não     | Sim (histograma) Não (GLCM) |      p90, moda e média      |      contrast     |  100 | 0.001 |    96.3%   |   86.6%   |   91.2%  |
+|      Sim     |             Sim             |       p90, moda e p25       |    homogeneity    |  100 | scale |    99.1%   |   87.4%   |   92.9%  |
 
+Dessa forma, o melhor classificador encontrado possuía as seguintes características:
 
-E A QUESTÃO DE EXCLUIR MÁSCARAS RUINS ENTRA ONDE? 
+* Imagens normalizadas por Máximo e Mínimo;
+* Atributos de histograma considerando a máscara: moda e percentis 90 e 25;
+* Atributos de GLCM considerando o bounding box: homogeneity;
+* SVM com kernel rbf (default) e C = 100.
 
+Tal classificador foi, então, treinado com todos os dados de treinamento (validação cruzada + validação) para predizer a classe das imagens de teste (225 imagens, uma de cada sujeito). Os resultados obtidos foram: 96.2% de recall para os pacientes de AVC, 99.3% para os pacientes de EM e 98.2% de acurácia. A tabela abaixo apresenta a matriz de confusão correspondente:
 
-O pipeline fiinal de pré-processamento das imagens de ressonância (FLAIR) dos pacientes (AVC, EM ou SLE) consistiu em:
-
-* Normalizar as imagens por Mínimo e Máximo. (EXPLICAR)
-* Aplicar as máscaras da lesão 
-
-
+TABELA 2 - Matriz de confusão dos resultados no conjunto de teste
+![Matriz de confusão - teste](assets/confusion_test.jpg)
 
 ## Resultados Obtidos e Discussão
 <!-- Esta seção deve apresentar o resultado de predição das lesões de LES usando o classificador treinado. Também deve tentar explicar quais os atributos relevantes usados na classificação obtida: apresente os resultados de forma quantitativa e qualitativa; tenha em mente que quem irá ler o relatório é uma equipe multidisciplinar. Descreva questões técnicas, mas também a intuição por trás delas. -->
