@@ -34,6 +34,8 @@ Todos os processamentos deste projeto foram realizados em Python (versão) atrav
 
 As imagens de ressonância dos pacientes (AVC ou EM) foram pré-processadas de diferentes formas para avaliar seu impacto na classificação. Realizamos testes com as imagens sem normalização - já que em atividades anteriores não notamos muito impacto na extração de atributos - ou normalizadas por Mínimo e Máximo - escolhida para testes devido à sua simplicidade e ao bom comportamento do intervalo de valores obtidos. Consideramos também as imagens completas ou apenas as regiões de interesse (lesões) definidas pelas máscaras.
 
+Note que, ao visualizar algumas imagens e máscaras, notamos algumas máscaras incorretas... (entraria aqui mesmo? falar do processo de seleção das máscaras...)
+
 Avaliamos atributos baseados em histograma, Matriz de Co-Ocorrência (GLCM) e Matriz de Comprimento de Corrida (RLM). Através de análises anteriores, percebemos que os histogramas das imagens pareciam se assemelhar dentro de cada classe, mas apresentar comportamentos diferentes entre as classes. Dessa forma, focamos inicialmente nos atributos de histograma. Optamos por testar também os atributos de GLCM e RLM (... atributos de textura, tentar melhorar os resultados em conjunto com os de histograma...)
 
 Vale destacar que, ao aplicar as máscaras, a extração dos atributos variou um pouco. Para os de histograma, apenas os pixels da imagem correspondentes à região de interesse foram considerados. Já para os atributos de GLCM e RLM, foi necessário definir um bounding box, ou seja, cortar as imagens em retângulos que comportam toda a sua região de interesse, atribuindo intensidade zero aos pixels fora da região. A ideia era extrair atributos com base apenas nas lesões, já que estamos mais interessados em suas características. No entanto, isso não foi possível para os atributos de GLCM e RLM, de modo que a abordagem do bounding box pareceu a mais próxima possível.
@@ -63,6 +65,7 @@ Nos primeiros testes realizados, o kernel rbf se desempenhou melhor do que os ou
 Os atributos de RLM não demonstraram bom desempenho e não foram utilizados pelo classificador final.
 
 
+E A QUESTÃO DE EXCLUIR MÁSCARAS RUINS ENTRA ONDE? 
 
 
 O pipeline fiinal de pré-processamento das imagens de ressonância (FLAIR) dos pacientes (AVC, EM ou SLE) consistiu em:
