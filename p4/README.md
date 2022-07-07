@@ -27,7 +27,7 @@ Parte dos pacientes diagnosticados com Lúpus Eritematoso Sistêmico (SLE) apres
 ### Ferramentas
 <!-- Listagem das ferramentas utilizadas (na forma de itens). -->
 
-Todos os processamentos deste projeto foram realizados em Python (versão) através de Jupyter Notebooks com o Gooble Colab. Os notebooks podem ser encontrados no diretório /notebooks. (?)
+Todos os processamentos deste projeto foram realizados em Python (versão 3.7.13) através de Jupyter Notebooks com o Gooble Colab. Os notebooks utilizados podem ser encontrados no diretório /notebooks.
 
 ### Preparo e uso dos dados
 <!-- Descreva o pipeline de pré-processamento dos dados: normalização (se houver); outros processamentos; uso das máscaras (se houver); extração de atributos (se houver); seleção de atributos (se houver). -->
@@ -42,10 +42,6 @@ Avaliamos atributos baseados em histograma, Matriz de Co-Ocorrência (GLCM) e Ma
 
 Vale destacar que, ao aplicar as máscaras, a extração dos atributos variou um pouco. Para os de histograma, apenas os pixels da imagem correspondentes à região de interesse foram considerados. Já para os atributos de GLCM e RLM, foi necessário definir um bounding box, ou seja, cortar as imagens em retângulos que comportam toda a sua região de interesse, atribuindo intensidade zero aos pixels fora da região. A ideia era extrair atributos com base apenas nas lesões, já que estamos mais interessados em suas características. No entanto, isso não foi possível para os atributos de GLCM e RLM, de modo que a abordagem do bounding box pareceu a mais próxima possível.
 
-
-Vale discutir depois essa questão do bounding box!!!!!
-
-
 Os 25 atributos considerados (14 de histograma, 6 de GLCM e 5 de RLM) passaram por um processo de seleção empírica, aplicando diferentes conjuntos de atributos ao classificador e selecionando aqueles que obtiveram os melhores resultados.
 
 ## Metodologia
@@ -54,9 +50,9 @@ Justificar as escolhas. Esta parte do relatório pode ser copiada da Atividade 1
 
 A partir do conjunto de dados disponibilizado, consideramos apenas as imagens para as quais existe uma máscara correspondente (ou seja, apenas as imagens que certamente apresentam alguma lesão). Dessa forma, o conjunto de treinamento foi composto por 50 pacientes de AVC (581 imagens) e 51 pacientes de EM (630 imagens). Note que, nas análises utilizando as máscaras, o número de pacientes se manteve o mesmo, mas o número de imagens passou a ser 538 de AVC e 611 de EM devido às máscaras excluídas. As imagens de 10 pacientes de cada classe (escolhidos aleatoriamente, cerca de 20% do conjunto) foram separadas em um conjunto de validação. As demais imagens foram utilizadas para uma validação cruzada dos modelos, considerando diferentes pipelines de pré-processamento e parâmetros do classificador.
 
-O classificador utilizado foi um Support Vector Machine (SVM), que procura o hiperplano que melhor divide o espaço de atributos entre as classes. Testamos diferentes kernels (RBF, linear, polinomial e sigmoid) - que mapeiam os atributos para um espaço possivelmente mais linearmente separável pelo hiperplano - mas os primeiros testes indicaram melhor desempenho para o kernel RBF e ele foi fixado para os testes seguintes. Dessa forma, consideramos diferentes valores para os parâmetros C e gamma. O primeiro define a relação entre classificações incorretas no treino e a simplicidade da superfície de decisão, de modo que um C baixo suaviza a superfície e um C alto tenta classificar todo conjunto de treino corretamente. Já o parâmetro gamma define quanta influência um único exemplo de treino possui - quanto maior seu valor, mais próximos devem estar os exemplos e maior o potencial de overfit.
+O classificador utilizado foi um Support Vector Machine (SVM), que procura o hiperplano que melhor divide o espaço de atributos entre as classes. Testamos diferentes kernels (RBF, linear, polinomial e sigmoid) - que mapeiam os atributos para um espaço possivelmente mais linearmente separável pelo hiperplano - mas os primeiros testes indicaram melhor desempenho para o kernel RBF e ele foi fixado para os testes seguintes. Dessa forma, consideramos diferentes valores para os parâmetros C e gamma. O primeiro define a relação entre classificações incorretas no treino e a simplicidade da superfície de decisão, de modo que um C baixo suaviza a superfície e um C alto tenta classificar todo conjunto de treino corretamente. Já o parâmetro gamma define quanta influência um único exemplo de treino possui - quanto maior seu valor, mais próximos devem estar os exemplos e maior o potencial de overfit. (REVISAR ISSO AQUI)
 
-Utilizamos uma validação cruzada com cinco folds. Para cada escolha de normalização e uso de máscara, selecionamos os conjuntos de atributos com melhor desempenho e avaliamos diferentes parâmetros para o SVM. Os modelos que apresentaram melhor desempenho foram treinados em todo o conjunto de validação cruzada e aplicados ao conjunto de validação.
+Utilizamos uma validação cruzada com cinco folds, de modo a manter cerca de 20% dos dados nas validações. Para cada escolha de normalização e uso de máscara, selecionamos os conjuntos de atributos com melhor desempenho e avaliamos diferentes parâmetros para o SVM. Os modelos que apresentaram melhor desempenho foram treinados em todo o conjunto de validação cruzada e aplicados ao conjunto de validação.
 
 As métricas de avaliação do modelo foram sua acurácia e o recall de cada classe (AVC ou EM). A primeira foi utilizada para fornecer uma visão geral da performance de classificação, enquanto o recall permitiu observar melhor o desempenho em cada classe e seu balanceamento. No caso da validação cruzada, os melhores modelos foram definidos de acordo com as médias das métricas das cinco etapas de treino/validação.
 
@@ -73,7 +69,7 @@ TABELA 1 - Características dos melhores modelos e seus resultados de validaçã
 |      Não     | Sim (histograma) Não (GLCM) |      p90, moda e média      |      contrast     |  100 | 0.001 |    96.3%   |   86.6%   |   91.2%  |
 |      Sim     |             Sim             |       p90, moda e p25       |    homogeneity    |  100 | scale |    99.1%   |   87.4%   |   92.9%  |
 
-Dessa forma, o melhor classificador encontrado possuía as seguintes características:
+É possível perceber que, de modo geral, os modelos acertaram a classe de praticamente todas as imagens de AVC e tenderam a errar um pouco mais a classificação das imagens de EM. Ainda, o melhor classificador encontrado possuía as seguintes características:
 
 * Imagens normalizadas por Máximo e Mínimo;
 * Atributos de histograma considerando a máscara: moda e percentis 90 e 25;
@@ -82,7 +78,7 @@ Dessa forma, o melhor classificador encontrado possuía as seguintes caracterís
 
 De acordo com os resultados de treino e validação, a moda e o p90 foram os atributos mais decisivos para a classificação do nosso modelo, de modo que os demais (p25 e homogeneity) apenas melhoraram ligeiramente seu desempenho.
 
-Tal classificador foi, então, treinado com todos os dados de treinamento (validação cruzada + validação) para predizer a classe das imagens de teste (225 imagens, uma de cada sujeito). Os resultados obtidos foram: 96.2% de recall para os pacientes de AVC, 99.3% para os pacientes de EM e 98.2% de acurácia. A tabela abaixo apresenta a matriz de confusão correspondente:
+Tal classificador foi, então, treinado com todos os dados de treinamento (validação cruzada + validação) para predizer a classe das imagens de teste (225 imagens, uma de cada sujeito). Os resultados obtidos foram: 96.2% de recall para os pacientes de AVC, 99.3% para os pacientes de EM e 98.2% de acurácia. Neste caso, curiosamente, o modelo se saiu um pouco melhor na classificação das imagens de EM. A tabela abaixo apresenta a matriz de confusão correspondente:
 
 TABELA 2 - Matriz de confusão dos resultados no conjunto de teste.
 
@@ -93,21 +89,24 @@ E A TENDÊNCIA DAS IMAGENS OBTIDAS? TALVEZ JÁ COMENTAR AQUI QUE IMAGENS MAIS CL
 ## Resultados Obtidos e Discussão
 <!-- Esta seção deve apresentar o resultado de predição das lesões de LES usando o classificador treinado. Também deve tentar explicar quais os atributos relevantes usados na classificação obtida: apresente os resultados de forma quantitativa e qualitativa; tenha em mente que quem irá ler o relatório é uma equipe multidisciplinar. Descreva questões técnicas, mas também a intuição por trás delas. -->
 
-O melhor classificador obtido foi treinado com todos os dados de treinamento e aplicado ao conjunto de imagens de lesões de SLE. Note que, das 697 imagens do conjunto, quatro possuíam máscaras contendo apenas pixels de valor zero (ou seja, sem uma região de interesse) e foram desconsideradas. Assim, das 693 imagens submetidas ao classificador, 59 foram classificadas como AVC (ou lesões isquêmicas) e 634 como EM (ou lesões desmielinizantes). A figura abaixo apresenta a distribuição dos valores dos atributos para as imagens de SLE em cada classe.
+O melhor classificador obtido foi treinado com todos os dados de treinamento e aplicado ao conjunto de imagens de lesões de SLE (que passaram pela mesma pipeline de pré-processamento das imagens de treino). Note que, das 697 imagens do conjunto, quatro possuíam máscaras contendo apenas pixels de valor zero (ou seja, sem uma região de interesse) e foram desconsideradas. Assim, das 693 imagens submetidas ao classificador (78 pacientes, várias fatias por paciente), 59 foram classificadas como AVC (ou lesões isquêmicas) e 634 como EM (ou lesões desmielinizantes).
+
+A figura abaixo apresenta a distribuição dos valores de cada atributo utilizado pelo modelo através de boxplots. Apenas as imagens de SLE foram consideradas, separadas de acordo com a classe predita pelo classificador.
 
 ![Boxplot - features SLE por classe](assets/boxplot_features_SLE.jpg)
 
-FIGURA 1 - Boxplots com as distribuições dos valores de cada atributo considerado, separadas por classe predita.
+FIGURA 1 - Boxplots com as distribuições dos valores de cada atributo considerado das imagens de SLE, separadas por classe predita.
 
-Os atributos de histograma estão atrelados à concentração de pixels em determinadas intensidades. Enquanto a moda indica o nível de cinza que mais se repetiu nos pixels da imagem, os percentis indicam a partir de qual nível de cinza é possível obter determinada porcentagem do total de pixels (no nosso caso, 90 ou 25%). Podemos ver na figura 1 que as imagens de SLE classificadas como AVC tenderam a apresentar valores mais altos para os três atributos. Um comportamento bem semelhante a esse (mas com diferenças mais marcadas para o p90 e a moda) foi observado nas imagens do conjunto de treinamento, sugerindo que as lesões isquêmicas tendem a apresentar mais pixels com intensidades mais altas.
+Os atributos de histograma estão atrelados à concentração de pixels em determinadas intensidades. Enquanto a moda indica o nível de cinza que mais se repetiu nos pixels da imagem, os percentis indicam a partir de qual nível de cinza é possível obter determinada porcentagem do total de pixels (no nosso caso, 90 ou 25%). Podemos ver na figura 1 que as imagens de SLE classificadas como AVC tenderam a apresentar valores mais altos para os três atributos. Um comportamento bem semelhante a esse (mas com diferenças mais marcadas entre as classes para o p90 e a moda) foi observado nas imagens do conjunto de treinamento, sugerindo que as lesões isquêmicas tendem a apresentar mais pixels com intensidades mais altas.
 
-O único atributo de GLCM considerado - a homogeneity - está relacionado à homogeneidade da textura da imagem, de modo que seu valor será maior (máximo 1) se os pixels consecutivos possuírem níveis de cinza mais próximos. Podemos ver na figura 1 que as imagens de SLE classificadas como EM tenderam a apresentar valores mais altos de homogeneity, sugerindo que as lesões desmielinizantes tendem a apresentar uma textura mais homogênea. No entanto, a diferença entre as classes não é tão marcante quanto a observada para os outros atributos (note a grande variedade de valores incluídos no boxplot de AVC e de outliers no boxplot de EM para a homogeneity) e foi ainda menos marcante em análises semelhantes considerando o conjunto de treinamento (nas quais obtivemos valores altos de homogeneity em ambas as classes).
+O único atributo de GLCM considerado - a homogeneity - está relacionado à homogeneidade da textura da imagem, de modo que seu valor será maior (máximo 1) se os pixels consecutivos possuírem níveis de cinza mais próximos. Podemos ver na figura 1 que as imagens de SLE classificadas como EM tenderam a apresentar valores mais altos de homogeneity, sugerindo que as lesões desmielinizantes tenderiam a apresentar uma textura mais homogênea. No entanto, a diferença entre as classes não é tão marcante quanto a observada para os outros atributos (note a grande variedade de valores incluídos no boxplot de AVC e de outliers no boxplot de EM para a homogeneity) e foi ainda menos marcante em análises semelhantes considerando o conjunto de treinamento (nas quais obtivemos valores altos de homogeneity em ambas as classes).
 
 É importante destacar também que 
 
 AQUI EU PODERIA FALAR DA QUESTÃO DO BOUNDING BOX (que ele pode ter influenciado bastante os atributos de GLCM por manter diversos pixels com intensidade zero, o que, para algumas imagens, acaba aumentando o valor de homogeneity obtido nas imagens...)
 
 
+Vale discutir depois essa questão do bounding box!!!!!
 
 
 
