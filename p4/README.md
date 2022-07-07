@@ -109,9 +109,14 @@ Com base nessas considerações, decidimos investigar um pouco mais os histogram
 
 FIGURA 2 - Histogramas das imagens após a normalização: por classe (AVC ou EM) e conjunto (treino ou SLE). A primeira linha apresenta os histogramas completos para o conjunto de treino, enquanto a segunda linha apresenta os mesmos histogramas, mas omitindo o último bin para facilitar a comparação com as imagens de SLE. Por fim, a terceira linha apresenta os histogramas completos do conjunto de SLE.
 
-É possível perceber que as lesões de SLE classificadas como isquêmicas tenderam a apresentar uma maior concentração de pixels com intensidades mais altas, especialmente por volta de 0.8 e acima. Já as lesões de SLE classificadas como desmielinizantes tenderam a apresentar uma maior concentração de pixels com intensidades intermediárias e, em alguns casos, baixas. Esse comportamento é semelhante ao observado para as imagens de treinamento
+É possível perceber que as lesões de SLE classificadas como isquêmicas tenderam a apresentar uma maior concentração de pixels com intensidades mais altas, especialmente por volta de 0.8 e acima. Já as lesões de SLE classificadas como desmielinizantes tenderam a apresentar uma maior concentração de pixels com intensidades intermediárias e, em alguns casos, baixas. Esse comportamento é semelhante ao observado para as imagens de treinamento, apesar de parecer mais marcado nas imagens de SLE.
+
+Uma grande diferença entre as imagens de treino e de SLE se dá na proporção de pixels de intensidade máxima (1.0). Das 538 imagens de AVC e 611 imagens de EM do treinamento, 505 e 62 apresentaram a intensidade 1.0 como moda, respectivamente. Por outro lado, das 690 imagens de SLE consideradas nessa análise, nenhuma apresentou tal valor de moda.
 
 DAÍ VEM A COMPARAÇÃO VISUAL ENTRE AS IMAGENS
+
+
+![Exemplo de imagens de treino por classe](assets/ex_imgs_train.jpg)
 
 
 LEMBRAR TAMBÉM DA QUESTÃO DA DIFERENÇA DE INTENSIDADES (MÁXIMO DA LESÃO - MÉDIA DA MATÉRIA BRANCA?)
