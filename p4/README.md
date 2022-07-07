@@ -56,7 +56,7 @@ FALAR DO SVM
 
 A partir do conjunto de dados disponibilizado, consideramos apenas as imagens para as quais existe uma máscara correspondente (ou seja, apenas as imagens que certamente apresentam alguma lesão). Dessa forma, o conjunto de treinamento foi composto por 50 pacientes de AVC (581 imagens) e 51 pacientes de EM (630 imagens). Note que, nas análises utilizando as máscaras, o número de pacientes se manteve o mesmo, mas o número de imagens passou a ser 538 de AVC e 611 de EM devido às máscaras excluídas.
 
-As imagens de 10 pacientes de cada classe (escolhidos aleatoriamente, cerca de 20% do conjunto) foram separadas em um conjunto de validação. As demais imagens foram utilizadas para uma validação cruzada dos modelos, considerando diferentes pipelines de pré-processamento <!--(com ou sem normalização, imagem inteira ou região de interesse, diferentes conjuntos de atributos) -->e parâmetros do classificador.
+As imagens de 10 pacientes de cada classe (escolhidos aleatoriamente, cerca de 20% do conjunto) foram separadas em um conjunto de validação. As demais imagens foram utilizadas para uma validação cruzada dos modelos, considerando diferentes pipelines de pré-processamento e parâmetros do classificador.
 
 Utilizamos uma validação cruzada com cinco folds. Para cada escolha de normalização e uso de máscara, selecionamos os conjuntos de atributos com melhor desempenho, então avaliamos o kernel do SVM (RBF, linear, polinomial ou sigmoid) e diferentes valores para os parâmetros C e gamma (que fazem o que?). Os modelos que apresentaram melhor desempenho foram treinados em todo o conjunto de validação cruzada e aplicados ao conjunto de validação.
 
@@ -80,12 +80,14 @@ Dessa forma, o melhor classificador encontrado possuía as seguintes caracterís
 * Imagens normalizadas por Máximo e Mínimo;
 * Atributos de histograma considerando a máscara: moda e percentis 90 e 25;
 * Atributos de GLCM considerando o bounding box: homogeneity;
-* SVM com kernel rbf (default) e C = 100.
+* SVM com kernel RBF (default) e C = 100.
 
 Tal classificador foi, então, treinado com todos os dados de treinamento (validação cruzada + validação) para predizer a classe das imagens de teste (225 imagens, uma de cada sujeito). Os resultados obtidos foram: 96.2% de recall para os pacientes de AVC, 99.3% para os pacientes de EM e 98.2% de acurácia. A tabela abaixo apresenta a matriz de confusão correspondente:
 
 TABELA 2 - Matriz de confusão dos resultados no conjunto de teste
 ![Matriz de confusão - teste](assets/confusion_test.jpg)
+
+E A TENDÊNCIA DAS IMAGENS OBTIDAS? TALVEZ JÁ COMENTAR AQUI QUE IMAGENS MAIS CLARAS FORAM PRO AVC E TAL...
 
 ## Resultados Obtidos e Discussão
 <!-- Esta seção deve apresentar o resultado de predição das lesões de LES usando o classificador treinado. Também deve tentar explicar quais os atributos relevantes usados na classificação obtida: apresente os resultados de forma quantitativa e qualitativa; tenha em mente que quem irá ler o relatório é uma equipe multidisciplinar. Descreva questões técnicas, mas também a intuição por trás delas. -->
