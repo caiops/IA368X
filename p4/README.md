@@ -50,7 +50,7 @@ Justificar as escolhas. Esta parte do relatório pode ser copiada da Atividade 1
 
 A partir do conjunto de dados disponibilizado, consideramos apenas as imagens para as quais existe uma máscara correspondente (ou seja, apenas as imagens que certamente apresentam alguma lesão). Dessa forma, o conjunto de treinamento foi composto por 50 pacientes de AVC (581 imagens) e 51 pacientes de EM (630 imagens). Note que, nas análises utilizando as máscaras, o número de pacientes se manteve o mesmo, mas o número de imagens passou a ser 538 de AVC e 611 de EM devido às máscaras excluídas. As imagens de 10 pacientes de cada classe (escolhidos aleatoriamente, cerca de 20% do conjunto) foram separadas em um conjunto de validação. As demais imagens foram utilizadas para uma validação cruzada dos modelos, considerando diferentes pipelines de pré-processamento e parâmetros do classificador.
 
-O classificador utilizado foi um Support Vector Machine (SVM), que procura o hiperplano que melhor divide o espaço de atributos entre as classes. Testamos diferentes kernels (RBF, linear, polinomial e sigmoid) - que mapeiam os atributos para um espaço possivelmente mais linearmente separável pelo hiperplano - mas os primeiros testes indicaram melhor desempenho para o kernel RBF e ele foi fixado para os testes seguintes. Dessa forma, consideramos diferentes valores para os parâmetros C e gamma. O primeiro define a relação entre classificações incorretas no treino e a simplicidade da superfície de decisão, de modo que um C baixo suaviza a superfície e um C alto tenta classificar todo conjunto de treino corretamente. Já o parâmetro gamma define quanta influência um único exemplo de treino possui - quanto maior seu valor, mais próximos devem estar os exemplos e maior o potencial de overfit. (REVISAR ISSO AQUI)
+O classificador utilizado foi um Support Vector Machine (SVM), que procura o hiperplano que melhor divide o espaço de atributos entre as classes. Testamos diferentes kernels (RBF, linear, polinomial e sigmoid) - que mapeiam os atributos para um espaço possivelmente mais linearmente separável pelo hiperplano - mas os primeiros testes indicaram melhor desempenho para o kernel RBF e ele foi fixado para os testes seguintes. Dessa forma, consideramos diferentes valores para os parâmetros C e gamma. O primeiro define a relação entre classificações incorretas no treino e a simplicidade da superfície de decisão, de modo que um C baixo suaviza a superfície e um C alto tenta classificar todo conjunto de treino corretamente. Já o parâmetro gamma define quanta influência um único exemplo de treino possui - quanto maior seu valor, mais próximos devem estar os exemplos para serem afetados e maior o potencial de overfit [^2][^3].
 
 Utilizamos uma validação cruzada com cinco folds, de modo a manter cerca de 20% dos dados nas validações. Para cada escolha de normalização e uso de máscara, selecionamos os conjuntos de atributos com melhor desempenho e avaliamos diferentes parâmetros para o SVM. Os modelos que apresentaram melhor desempenho foram treinados em todo o conjunto de validação cruzada e aplicados ao conjunto de validação.
 
@@ -83,8 +83,6 @@ Tal classificador foi, então, treinado com todos os dados de treinamento (valid
 TABELA 2 - Matriz de confusão dos resultados no conjunto de teste.
 
 ![Matriz de confusão - teste](assets/confusion_test.jpg)
-
-E A TENDÊNCIA DAS IMAGENS OBTIDAS? TALVEZ JÁ COMENTAR AQUI QUE IMAGENS MAIS CLARAS FORAM PRO AVC E TAL...
 
 ## Resultados Obtidos e Discussão
 <!-- Esta seção deve apresentar o resultado de predição das lesões de LES usando o classificador treinado. Também deve tentar explicar quais os atributos relevantes usados na classificação obtida: apresente os resultados de forma quantitativa e qualitativa; tenha em mente que quem irá ler o relatório é uma equipe multidisciplinar. Descreva questões técnicas, mas também a intuição por trás delas. -->
@@ -135,7 +133,7 @@ Vale ressaltar também que notamos algumas imagens de fatias consecutivas e do m
 
 FIGURA 5 - Exemplo de fatias consecutivas de um mesmo paciente de SLE com classificação diferente.<!-- A primeira coluna apresenta as imagens após normalização, a segunda apresenta as máscaras correspondentes e a terceira mostra a imagem após aplicar a máscara. -->
 
-É possível que um mesmo paciente apresente lesões com etiologias diferentes, mas é no mínimo curioso que as fatias parecem compartilhar uma mesma lesão - que foi classificada de forma diferente em cada uma. O fato das máscaras as vezes compreenderem mais de uma lesão ao mesmo tempo complica a análise, mas ela parece indicar que o modelo utilizado não é apropriado para o objetivo inicial do projeto e levanta novamente a questão do viés no conjunto de dados.
+É possível que um mesmo paciente apresente lesões com etiologias diferentes, mas é no mínimo curioso que as fatias parecem compartilhar uma mesma lesão - que foi classificada de forma diferente em cada uma. Tal análise levanta novamente a questão do viés no conjunto de dados e indica que nosso modelo talvez não seja o mais apropriado para tentar caracterizar a etiologia das lesões de SLE.
 
 ## Conclusão
 <!-- Destacar as principais conclusões obtidas no desenvolvimento do projeto.
@@ -143,9 +141,24 @@ Destacar os principais desafios enfrentados.
 Principais lições aprendidas.
 Trabalhos Futuros: o que poderia ser melhorado se houvesse mais tempo? -->
 
+O modelo utilizado para classificar as lesões de SLE parece indicar que elas se assemelham mais às lesões de etiologia desmielinizante, de modo que cerca de 91.5% das imagens foram classificadas nessa categoria contra apenas 8.5% classificadas como isquêmicas.
+
+Segundo as análises realizadas, os atributos de histograma foram os mais decisivos na classificação, indicando que o modelo se baseou principalmente nas diferenças entre as concentrações de pixels em determinadas intensidades nas lesões de cada classe. Ainda, as lesões isquêmicas tenderam a ser mais claras que as lesões desmielinizantes, ou seja, tenderam a apresentar uma maior concentração de pixels com nível de cinza mais alto.
+
+No entanto, como essa tendência vai além das lesões em si e está presente mesmo considerando as imagens sem as máscaras, é possível que o nosso modelo tenha aprendido a classificar as imagens com base em um viés do conjunto de treinamento. Dessa forma, os resultados obtidos devem ser considerados com cuidado e mais análises seriam necessárias para confirmá-los. Seria muito interessante, por exemplo, ampliar o conjunto de treinamento para tentar minimizar o possível viés. Outra possibilidade seria talvez normalizar as imagens de modo que o valor médio da substância branca saudável seja o mesmo em todas as imagens.
+
+Além disso, o classificador utilizado nesse projeto é relativamente simples. Outros tipos de atributos poderiam também ser avaliados, variações das máscaras (como expandir um pouco as regiões ou considerar apenas suas bordas) e até mesmo outros tipos de classificadores. Não apenas outros atributos talvez fossem mais robustos ao possível viés dos dados, como as classificações obtidas por diferentes tipos de classificadores poderiam ser comparadas, verificando seu nível de concordância e os principais aspectos das imagens em que foram discordantes.
+
+Quanto aos principais desafios enfrentados, destacamos questões relacionadas ao processo de leitura das imagens (nomes e extensões dos arquivos não padronizados, intervalos de valores diferentes) e à definição do pipeline de pré-processamento (normalização a ser utilizada, como aplicar as máscaras e quais imagens considerar). Em especial, definir os atributos a serem extraídos e selecionados foi talvez o maior desafio e, ainda assim, não consideramos diversas outras possibilidades de atributos. Ainda, tentar comparar as imagens e interpretar os resultados obtidos se mostrou uma tarefa bem complexa.
+
+Como lições aprendidas, além de aspectos relacionados à complexidade envolvida em projetos deste tipo, adquirimos também uma melhor compreensão a respeito da dificuldade do processo de definir, extrair e selecionar atributos, bem como a importância e poder dos algoritmos de deep learning que incorporam tal processo e o fazem de forma automática. Por fim, notamos também o impacto da normalização no pocesso de classificação, que acabou melhorando os resultados obtidos mesmo sem alterar muito os atributos extraídos.
 
 ## Referências Bibliográficas
 <!-- Lista de artigos, links e referências bibliográficas (se houver).
 Fiquem à vontade para escolher o padrão de referenciamento preferido pelo grupo. -->
 
 [^1]: POSTAL, M. et al. Magnetic resonance imaging in neuropsychiatric systemic lupus erythematosus: current state of the art and novel approaches. Lupus, v. 26, n. 5, p. 517-521, 2017.
+
+[^2]: Support Vector Machines. Disponível em <https://scikit-learn.org/stable/modules/svm.html#svm-kernels>. Último acesso em 07/07/2022.
+
+[^3]: Sushanth Sreenivasa. Radial Basis Function (RBF) Kernel: The Go-To Kernel. Disponível em <https://towardsdatascience.com/radial-basis-function-rbf-kernel-the-go-to-kernel-acf0d22c798a>. Último acesso em 07/07/2022.
