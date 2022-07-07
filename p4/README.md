@@ -80,6 +80,8 @@ Dessa forma, o melhor classificador encontrado possuía as seguintes caracterís
 * Atributos de GLCM considerando o bounding box: homogeneity;
 * SVM com kernel RBF (default) e C = 100.
 
+De acordo com os resultados de treino e validação, a moda e o p90 foram os atributos mais decisivos para a classificação do nosso modelo, de modo que os demais (p25 e homogeneity) apenas melhoraram ligeiramente seu desempenho.
+
 Tal classificador foi, então, treinado com todos os dados de treinamento (validação cruzada + validação) para predizer a classe das imagens de teste (225 imagens, uma de cada sujeito). Os resultados obtidos foram: 96.2% de recall para os pacientes de AVC, 99.3% para os pacientes de EM e 98.2% de acurácia. A tabela abaixo apresenta a matriz de confusão correspondente:
 
 TABELA 2 - Matriz de confusão dos resultados no conjunto de teste.
@@ -94,19 +96,18 @@ E A TENDÊNCIA DAS IMAGENS OBTIDAS? TALVEZ JÁ COMENTAR AQUI QUE IMAGENS MAIS CL
 O melhor classificador obtido foi treinado com todos os dados de treinamento e aplicado ao conjunto de imagens de lesões de SLE. Note que, das 697 imagens do conjunto, quatro possuíam máscaras contendo apenas pixels de valor zero (ou seja, sem uma região de interesse) e foram desconsideradas. Assim, das 693 imagens submetidas ao classificador, 59 foram classificadas como AVC (ou lesões isquêmicas) e 634 como EM (ou lesões desmielinizantes). A figura abaixo apresenta a distribuição dos valores dos atributos para as imagens de SLE em cada classe.
 
 ![Boxplot - features SLE por classe](assets/boxplot_features_SLE.jpg)
+
 FIGURA 1 - Boxplots com as distribuições dos valores de cada atributo considerado, separadas por classe predita.
 
+Os atributos de histograma estão atrelados à concentração de pixels em determinadas intensidades. Enquanto a moda indica o nível de cinza que mais se repetiu nos pixels da imagem, os percentis indicam a partir de qual nível de cinza é possível obter determinada porcentagem do total de pixels (no nosso caso, 90 ou 25%). Podemos ver na figura 1 que as imagens de SLE classificadas como AVC tenderam a apresentar valores mais altos para os três atributos. Um comportamento bem semelhante a esse (mas com diferenças mais marcadas para o p90 e a moda) foi observado nas imagens do conjunto de treinamento, sugerindo que as lesões isquêmicas tendem a apresentar mais pixels com intensidades mais altas.
+
+O único atributo de GLCM considerado - a homogeneity - está relacionado à homogeneidade da textura da imagem, de modo que seu valor será maior (máximo 1) se os pixels consecutivos possuírem níveis de cinza mais próximos. Podemos ver na figura 1 que as imagens de SLE classificadas como EM tenderam a apresentar valores mais altos de homogeneity, sugerindo que as lesões desmielinizantes tendem a apresentar uma textura mais homogênea. No entanto, a diferença entre as classes não é tão marcante quanto a observada para os outros atributos (note a grande variedade de valores incluídos no boxplot de AVC e de outliers no boxplot de EM para a homogeneity) e foi ainda menos marcante em análises semelhantes considerando o conjunto de treinamento (nas quais obtivemos valores altos de homogeneity em ambas as classes).
+
+É importante destacar também que 
+
+AQUI EU PODERIA FALAR DA QUESTÃO DO BOUNDING BOX (que ele pode ter influenciado bastante os atributos de GLCM por manter diversos pixels com intensidade zero, o que, para algumas imagens, acaba aumentando o valor de homogeneity obtido nas imagens...)
 
 
-PUXAR AQUI OS BOXPLOTS PRA CLASSIFICAÇÃO DE SLE E SÓ DEPOIS COMENTAR SOBRE O QUE CADA ATRIBUTO REPRESENTA E COMPARAR COM AS ANÁLISES DO TREINO...
-
-Analisando os atributos utilizados pelo modelo, temos que:
-
-* Os atributos de histograma estão atrelados à concentração de pixels em determinadas intensidades. Enquanto a moda indica o nível de cinza que mais se repetiu nos pixels da imagem, os percentis indicam a partir de qual nível de cinza é possível obter determinada porcentagem do total de pixels (no nosso caso, 90 ou 25%). No conjunto de treino, notamos que as imagens de AVC tenderam a apresentar valores mais altos para os três atributos (em especial para a moda e o p90), sugerindo que as lesões isquêmicas tendem a apresentar mais pixels com intensidades mais altas.
-
-* O único atributo de GLCM considerado - a homogeneity - está relacionado à homogeneidade da textura da imagem, de modo que seu valor será maior (máximo 1) se os pixels consecutivos possuírem níveis de cinza mais próximos. No conjunto de treino, não conseguimos notar uma diferença entre as classes ao considerar esse atributo, que tendeu a apresentar valores altos em ambas. AQUI EU PODERIA FALAR DA QUESTÃO DO BOUNDING BOX
-
-De acordo com os resultados de treino e validação, a moda e o p90 foram os atributos mais decisivos para a classificação do nosso modelo, de modo que os demais (p25 e homogeneity) apenas melhoraram ligeiramente seu desempenho.
 
 
 
