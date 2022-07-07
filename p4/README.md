@@ -101,28 +101,13 @@ Os atributos de histograma estão atrelados à concentração de pixels em deter
 
 O único atributo de GLCM considerado - a homogeneity - está relacionado à homogeneidade da textura da imagem, de modo que seu valor será maior (máximo 1) se os pixels consecutivos possuírem níveis de cinza mais próximos. Podemos ver na figura 1 que as imagens de SLE classificadas como EM tenderam a apresentar valores mais altos de homogeneity, sugerindo que as lesões desmielinizantes tenderiam a apresentar uma textura mais homogênea. No entanto, a diferença entre as classes não é tão marcante quanto a observada para os outros atributos (note a grande variedade de valores incluídos no boxplot de AVC e de outliers no boxplot de EM para a homogeneity) e foi ainda menos marcante em análises semelhantes considerando o conjunto de treinamento (nas quais obtivemos valores altos de homogeneity em ambas as classes).
 
-É importante destacar também que 
+É importante destacar também que existe uma dificuldade extra em interpretar os valores de homogeneity das imagens. Como comentado, os atributos de GLCM foram obtidos a partir de um corte retangular da imagem em torno da região de interesse, atribuindo intensidade zero aos pixels fora da região. Dessa forma, algumas imagens apresentam muitos pixels de fundo (se a máscara possuir algumas pequenas lesões muito distantes entre si, por exemplo) enquanto outras apresentam bem poucous (se a máscara possuir apenas uma pequena lesão, por exemplo). Tais pixels de intensidade zero podem influenciar bastante na homogeneity, de modo que uma grande quantidade de pixels de fundo tende a aumentar seu valor (afinal, toda a região de fundo seria completamente homogênea com apenas um nível de cinza). Portanto, não é possível associar diretamente o valor de homogeneity com a textura da região da lesão.
 
-AQUI EU PODERIA FALAR DA QUESTÃO DO BOUNDING BOX (que ele pode ter influenciado bastante os atributos de GLCM por manter diversos pixels com intensidade zero, o que, para algumas imagens, acaba aumentando o valor de homogeneity obtido nas imagens...)
-
-
-Vale discutir depois essa questão do bounding box!!!!!
-
-
-
-Para tentar obter uma melhor intuição sobre o que distinguiu as lesões, a figura abaixo apresenta os histogramas das imagens do conjunto de treino e de SLE por classe. Note que, três imagens que apresentaram regiões de interesse desproporcionalmente grandes foram excluídas dessa análise para facilitar a comparação entre os histogramas (já que algumas delas também consideravam pixels do fundo como região de interesse, gerando histogramas desproporcionais aos demais). 
-
-
-
-A PARTIR DAÍ, PUXA PROS HISTOGRAMAS JÁ QUE OS ATRIBUTOS DE HISTOGRAMA SE DESTACARAM E SÃO MAIS FÁCEIS DE INTERPRETAR
-
-A figura abaixo apresenta os histogramas das imagens do conjunto de treino e de SLE por classe
-Ainda, outras três apresentaram regiões de interesse desproporcionalmente grandes e foram excluídas de algumas análises.
-
-(pq classificou assim? falar dos atributos considerados e sua interpretação, comparar também os histogramas e visualizar as imagens de cada classe)
+Com base nessas considerações, decidimos investigar um pouco mais os histogramas e suas diferenças entre as classes. A figura abaixo apresenta os histogramas das imagens do conjunto de treino e de SLE, separados por classe. Cada plot apresenta os histogramas de todas as imagens do conjunto/classe como funções contínuas, de modo que cada cor representa o histograma de uma imagem. Note que, três imagens de SLE que apresentaram regiões de interesse desproporcionalmente grandes (mais de 30 mil pixels) foram excluídas dessa análise para facilitar a comparação entre os histogramas.
 
 ![Histogramas - treino x SLE](assets/hists_train_SLE.jpg)
-FIGURA 2 - Histogramas das imagens após a normalização: por classe (AVC ou EM) e conjunto (treino ou SLE). Para facilitar a visualização e comparação, o último bin de cada histograma foi omitido e as três imagens com regiões de interesse muito grandes não foram consideradas.
+
+FIGURA 2 - Histogramas das imagens após a normalização: por classe (AVC ou EM) e conjunto (treino ou SLE). Para facilitar a visualização e comparação, o último bin de cada histograma foi omitido (já que as imagens de treino possuem uma quantidade desproporcional de pixels no último bin em comparação com as imagens de SLE).
 
 É possível perceber que as lesões de SLE classificadas como AVC tenderam a apresentar uma maior concentração de pixels com intensidades mais altas
 
