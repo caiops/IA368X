@@ -91,11 +91,12 @@ E A TENDÊNCIA DAS IMAGENS OBTIDAS? TALVEZ JÁ COMENTAR AQUI QUE IMAGENS MAIS CL
 ## Resultados Obtidos e Discussão
 <!-- Esta seção deve apresentar o resultado de predição das lesões de LES usando o classificador treinado. Também deve tentar explicar quais os atributos relevantes usados na classificação obtida: apresente os resultados de forma quantitativa e qualitativa; tenha em mente que quem irá ler o relatório é uma equipe multidisciplinar. Descreva questões técnicas, mas também a intuição por trás delas. -->
 
-O melhor classificador obtido foi treinado com todos os dados de treinamento e aplicado ao conjunto de imagens de lesões de SLE. Note que, das 697 imagens do conjunto, quatro possuíam máscaras contendo apenas pixels de valor zero (ou seja, sem uma região de interesse) e foram desconsideradas. Assim, das 693 imagens submetidas ao classificador, 59 foram classificadas como AVC e 634 como EM.
+O melhor classificador obtido foi treinado com todos os dados de treinamento e aplicado ao conjunto de imagens de lesões de SLE. Note que, das 697 imagens do conjunto, quatro possuíam máscaras contendo apenas pixels de valor zero (ou seja, sem uma região de interesse) e foram desconsideradas. Assim, das 693 imagens submetidas ao classificador, 59 foram classificadas como AVC (ou lesões isquêmicas) e 634 como EM (ou lesões desmielinizantes). A figura abaixo apresenta a distribuição dos valores dos atributos para as imagens de SLE em cada classe.
 
-A figura abaixo apresenta a distribuição dos valores dos atributos para as imagens de SLE em cada classe.
+![Boxplot - features SLE por classe](assets/hists_train_SLE.jpg)
+FIGURA 1 - Boxplots com as distribuições dos valores de cada atributo considerado, separadas por classe predita.
 
-FIGURA 1 - 
+boxplot_features_SLE.jpg
 
 PUXAR AQUI OS BOXPLOTS PRA CLASSIFICAÇÃO DE SLE E SÓ DEPOIS COMENTAR SOBRE O QUE CADA ATRIBUTO REPRESENTA E COMPARAR COM AS ANÁLISES DO TREINO...
 
