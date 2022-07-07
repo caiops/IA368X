@@ -113,12 +113,11 @@ FIGURA 2 - Histogramas das imagens após a normalização: por classe (AVC ou EM
 
 Uma grande diferença entre as imagens de treino e de SLE se dá na proporção de pixels de intensidade máxima (1.0). Das 538 imagens de AVC e 611 imagens de EM do treinamento, 505 e 62 apresentaram a intensidade 1.0 como moda, respectivamente. Por outro lado, das 690 imagens de SLE consideradas nessa análise, nenhuma apresentou tal valor de moda.
 
-Seguimos, então, para uma comparação visual entre as imagens de cada classe. 
-
-DAÍ VEM A COMPARAÇÃO VISUAL ENTRE AS IMAGENS
-
+Seguimos, então, para uma comparação visual entre as imagens de cada classe. A figura abaixo apresenta alguns exemplos de imagens de SLE classificadas como AVC ou EM.
 
 ![Exemplo de imagens de treino por classe](assets/ex_imgs_SLE.jpg)
+
+FIGURA 3 - Exemplos de imagens de SLE (após normalização) classificadas como AVC ou EM. As imagens foram escolhidas de modo aleatório, com seed = 6 para permitir replicação.
 
 
 LEMBRAR TAMBÉM DA QUESTÃO DA DIFERENÇA DE INTENSIDADES (MÁXIMO DA LESÃO - MÉDIA DA MATÉRIA BRANCA?)
