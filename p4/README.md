@@ -133,17 +133,9 @@ Vale ressaltar também que notamos algumas imagens de fatias consecutivas e do m
 
 ![Exemplo de paciente (SLE) com fatias consecutivas em diferentes classes](assets/ex_slices_consec.jpg)
 
-FIGURA 5 - Exemplo de fatias consecutivas de um mesmo paciente de SLE com classificação diferente. A primeira coluna apresenta as imagens após normalização, a segunda apresenta as máscaras correspondentes e a terceira mostra a imagem após aplicar a máscara.
+FIGURA 5 - Exemplo de fatias consecutivas de um mesmo paciente de SLE com classificação diferente.<!-- A primeira coluna apresenta as imagens após normalização, a segunda apresenta as máscaras correspondentes e a terceira mostra a imagem após aplicar a máscara. -->
 
-
-de imagens de SLE (após normalização) classificadas como AVC ou EM. Para facilitar a comparação, as imagens são as mesmas da figura anterior, mas sem o corte e aplicação da máscara.
-
-
-
-Isso poderia indicar talvez um viés do conjunto de dados?
-
-
-LEMBRAR TAMBÉM DA QUESTÃO DA DIFERENÇA DE INTENSIDADES (MÁXIMO DA LESÃO - MÉDIA DA MATÉRIA BRANCA?)
+É possível que um mesmo paciente apresente lesões com etiologias diferentes, mas é no mínimo curioso que as fatias parecem compartilhar uma mesma lesão - que foi classificada de forma diferente em cada uma. O fato das máscaras as vezes compreenderem mais de uma lesão ao mesmo tempo complica a análise, mas ela parece indicar que o modelo utilizado não é apropriado para o objetivo inicial do projeto e levanta novamente a questão do viés no conjunto de dados.
 
 ## Conclusão
 <!-- Destacar as principais conclusões obtidas no desenvolvimento do projeto.
