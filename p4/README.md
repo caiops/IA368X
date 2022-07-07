@@ -93,10 +93,10 @@ E A TENDÊNCIA DAS IMAGENS OBTIDAS? TALVEZ JÁ COMENTAR AQUI QUE IMAGENS MAIS CL
 
 O melhor classificador obtido foi treinado com todos os dados de treinamento e aplicado ao conjunto de imagens de lesões de SLE. Note que, das 697 imagens do conjunto, quatro possuíam máscaras contendo apenas pixels de valor zero (ou seja, sem uma região de interesse) e foram desconsideradas. Assim, das 693 imagens submetidas ao classificador, 59 foram classificadas como AVC (ou lesões isquêmicas) e 634 como EM (ou lesões desmielinizantes). A figura abaixo apresenta a distribuição dos valores dos atributos para as imagens de SLE em cada classe.
 
-![Boxplot - features SLE por classe](assets/hists_train_SLE.jpg)
+![Boxplot - features SLE por classe](assets/boxplot_features_SLE.jpg)
 FIGURA 1 - Boxplots com as distribuições dos valores de cada atributo considerado, separadas por classe predita.
 
-boxplot_features_SLE.jpg
+
 
 PUXAR AQUI OS BOXPLOTS PRA CLASSIFICAÇÃO DE SLE E SÓ DEPOIS COMENTAR SOBRE O QUE CADA ATRIBUTO REPRESENTA E COMPARAR COM AS ANÁLISES DO TREINO...
 
