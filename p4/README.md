@@ -119,17 +119,26 @@ Seguimos, então, para uma comparação visual entre as imagens de cada classe. 
 
 FIGURA 3 - Exemplos de lesões de SLE (após normalização, corte e aplicação da máscara) classificadas como AVC ou EM. As imagens foram escolhidas de modo aleatório, com _seed = 6_ para permitir replicação. Os eixos indicam as dimensões das imagens. As imagens foram plotadas através da função _matplotlib.pyplot.imshow_, definindo o intervalo coberto pelo mapa de cores para garantir uma representação visual dos níveis de cinza das diferentes imagens que fosse comparável.
 
-intervalo de dados que o mapa de cores cobre
+A partir dessa visualização, sem muitas surpresas, temos que as lesões de SLE classificadas como isquêmicas tenderam a apresentar um aspecto mais claro. Ainda, nenhuma outra característica das lesões (tamanho, forma ou quantidade) pareceu se diferenciar entre as classes obtidas. Vale notar que tal visualização foi repetida diversas vezes considerando outros conjuntos aleatórios de imagens e, de modo geral, observamos o mesmo comportamento.
 
-data range that the colormap covers.
-
-
-Primeiro considerando o corte das regiões, parece que as lesões classificadas como isquêmicas de fato são mais claras.
-
-Daí puxar pras imagens completas pq essa relação parece se manter mesmo ao considerar as imagens completas...
-
+Mesmo considerando as imagens completas (sem realizar o corte e aplicar a máscara), observamos uma tendência de imagens de SLE classificadas como AVC apresentando aspecto mais claro (figura abaixo). É interessante ressaltar que essa tendência foi ainda mais acentuada ao visualizar as imagens do conjunto de treino separadas por classe.
 
 ![Exemplo de imagens de SLE por classe](assets/ex_imgs_SLE.jpg)
+
+FIGURA 4 - Exemplos de imagens de SLE (após normalização) classificadas como AVC ou EM. Para facilitar a comparação, as imagens são as mesmas da figura anterior, mas sem o corte e aplicação da máscara.
+
+Com base nessas análises, nos perguntamos se o comportamento observado se deve a uma diferença real entre as classes ou a um viés do conjunto de dados. Talvez imagens do cérebro com lesões isquêmicas realmente tendam a ser mais claras do que imagens com lesões desmielinizantes. No entanto, é possível também que isso tenha ocorrido apenas no conjunto de dados utilizado. Por exemplo, as imagens de pacientes de AVC poderiam ter sido obtidas utilizando um equipamento ou configurações diferentes das utilizadas para as imagens de EM, de modo a gerar artificialmente a diferença observada. Nesse caso, nosso modelo possivelmente estaria enviesado - se baseando no ruído do conjunto de dados de treinamento ao invés de características intrínsecas às lesões - e provavelmente não apresentaria um bom desempenho em outros conjuntos de dados sem o viés ou com um viés diferente.
+
+Vale ressaltar também que notamos algumas imagens de fatias consecutivas e do mesmo sujeito classificadas em categorias diferentes. A figura abaixo apresenta um desses casos.
+
+![Exemplo de paciente (SLE) com fatias consecutivas em diferentes classes](assets/ex_slices_consec.jpg)
+
+FIGURA 5 - Exemplo de fatias consecutivas de um mesmo paciente de SLE com classificação diferente. A primeira coluna apresenta as imagens após normalização, a segunda apresenta as máscaras correspondentes e a terceira mostra a imagem após aplicar a máscara.
+
+
+de imagens de SLE (após normalização) classificadas como AVC ou EM. Para facilitar a comparação, as imagens são as mesmas da figura anterior, mas sem o corte e aplicação da máscara.
+
+
 
 Isso poderia indicar talvez um viés do conjunto de dados?
 
