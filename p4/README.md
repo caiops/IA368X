@@ -27,7 +27,7 @@ Parte dos pacientes diagnosticados com Lúpus Eritematoso Sistêmico (SLE) apres
 ### Ferramentas
 <!-- Listagem das ferramentas utilizadas (na forma de itens). -->
 
-Todos os processamentos deste projeto foram realizados em Python (versão 3.7.13) através de Jupyter Notebooks com o Gooble Colab. Os notebooks utilizados podem ser encontrados no diretório /notebooks.
+Todos os processamentos deste projeto foram realizados em Python (versão 3.7.13) através de um único Jupyter Notebook utilizando o Gooble Colab. Devido ao tamanho do arquivo do notebook, não foi possível colocá-lo aqui no GitHub, mas ele pode ser encontrado nesse [link](https://colab.research.google.com/drive/1d4vT9HcW3ommKbyHxHHk--jZDokec-qv?usp=sharing).
 
 ### Preparo e uso dos dados
 <!-- Descreva o pipeline de pré-processamento dos dados: normalização (se houver); outros processamentos; uso das máscaras (se houver); extração de atributos (se houver); seleção de atributos (se houver). -->
